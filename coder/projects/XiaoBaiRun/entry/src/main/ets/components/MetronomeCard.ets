@@ -27,7 +27,24 @@ export struct MetronomeCard {
   @State volume: number = 0.7;
   @State isDarkMode: boolean = false;
   
-  private colors!: ColorTheme;
+  private colors: ColorTheme = {
+    backgroundColor: '#F7F7F7',
+    cardBackground: '#FFFFFF',
+    primaryColor: '#FF6B6B',
+    primaryColorPressed: '#EE5A5A',
+    secondaryColor: '#4ECDC4',
+    secondaryColorPressed: '#3DBDB5',
+    textPrimary: '#333333',
+    textSecondary: '#666666',
+    textTertiary: '#999999',
+    borderColor: '#E0E0E0',
+    dividerColor: '#E8E8E8',
+    successColor: '#52C41A',
+    warningColor: '#FAAD14',
+    errorColor: '#FF4D4F',
+    infoColor: '#1890FF',
+    shadowColor: 'rgba(0, 0, 0, 0.1)',
+  };
   
   aboutToAppear() {
     this.colors = DesignTokens.getThemeColors(this.isDarkMode);

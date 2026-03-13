@@ -17,8 +17,11 @@ import UIAbility from '@ohos.app.ability.UIAbility';
 import window from '@ohos.window';
 import AbilityConstant from '@ohos.app.ability.AbilityConstant';
 import Want from '@ohos.app.ability.Want';
+import { common } from '@kit.AbilityKit';
 
 export default class EntryAbility extends UIAbility {
+  // 权限请求回调
+  public permissionRequestCallback?: (granted: boolean) => void;
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
     console.info('EntryAbility onCreate');
   }
@@ -49,5 +52,16 @@ export default class EntryAbility extends UIAbility {
 
   onBackground(): void {
     console.info('EntryAbility onBackground');
+  }
+  
+  /**
+   * 请求定位权限
+   * 注意：HarmonyOS 权限请求需要在能弹出对话框的上下文中调用
+   * 建议在页面中使用 atManager.requestAuthFromUser
+   */
+  requestLocationPermission(): void {
+    // 权限已在 module.json5 中声明
+    // 实际请求需要在页面中使用 atManager
+    console.info('Location permission will be requested in page context');
   }
 }

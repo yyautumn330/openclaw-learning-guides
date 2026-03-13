@@ -18,7 +18,6 @@ import { DesignTokens, type ColorTheme } from '../constants/DesignTokens';
 import { common } from '@kit.AbilityKit';
 import { ToastComponent } from '../components/Toast';
 
-@Entry
 @Component
 export struct History {
   @State records: RunRecord[] = [];
@@ -29,8 +28,8 @@ export struct History {
   }
   
   async aboutToAppear() {
+    const context = getContext(this) as common.UIAbilityContext;
     try {
-      const context = getContext(this) as common.UIAbilityContext;
       await runDataModel.initialize(context);
       this.isDarkMode = this.getIsDarkMode();
       this.loadRecords();

@@ -16,7 +16,6 @@
 import { DesignTokens, type ColorTheme } from '../constants/DesignTokens';
 import { ToastComponent } from '../components/Toast';
 
-@Entry
 @Component
 export struct Profile {
   @State isDarkMode: boolean = false;

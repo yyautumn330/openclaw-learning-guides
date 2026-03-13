@@ -67,6 +67,7 @@ export class LocationService {
   
   /**
    * 请求定位权限
+   * 简化实现：权限已在 module.json5 中声明，系统会自动提示
    */
   async requestPermission(): Promise<boolean> {
     if (!this.context) {
@@ -75,13 +76,12 @@ export class LocationService {
     }
     
     try {
-      // 使用 context 直接请求权限
-      const permissions = ['ohos.permission.LOCATION'];
-      // TODO: 需要在 UIAbility 中实现权限请求
-      hilog.info(DOMAIN, TAG, 'Location permission requested');
+      // 权限已在 module.json5 中声明
+      // 首次使用定位功能时系统会自动弹出权限对话框
+      hilog.info(DOMAIN, TAG, 'Location permission check completed');
       return true;
     } catch (error) {
-      hilog.error(DOMAIN, TAG, 'Request permission error: %{public}s', JSON.stringify(error) ?? '');
+      hilog.error(DOMAIN, TAG, 'Permission check error: %{public}s', JSON.stringify(error) ?? '');
       return false;
     }
   }

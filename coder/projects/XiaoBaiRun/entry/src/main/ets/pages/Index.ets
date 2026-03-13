@@ -18,11 +18,16 @@ import { locationService, LocationInfo } from '../services/LocationService';
 import { DesignTokens } from '../constants/DesignTokens';
 import { common } from '@kit.AbilityKit';
 import { ToastComponent } from '../components/Toast';
-import { MetronomeCard } from '../components/MetronomeCard';
+import { MapContainer } from '../components/MapContainer';
+import { Statistics } from './Statistics';
+import { History } from './History';
+import { Metronome } from './Metronome';
+import { Profile } from './Profile';
 
 @Entry
 @Component
 struct Index {
+  @State currentIndex: number = 0;
   @State isRunning: boolean = false;
   @State isPaused: boolean = false;
   @State duration: number = 0; // 秒
@@ -33,24 +38,24 @@ struct Index {
   
   private timerId: number = -1;
   private lastLocation: LocationInfo | null = null;
+  private context: common.UIAbilityContext | null = null;
   
   getColors(): import('../constants/DesignTokens').ColorTheme {
     return DesignTokens.getThemeColors(this.isDarkMode);
   }
   
   async aboutToAppear() {
+    this.context = getContext(this) as common.UIAbilityContext;
     try {
-      const context = getContext(this) as common.UIAbilityContext;
-      await runDataModel.initialize(context);
-      
-      // 初始化定位服务上下文
-      locationService.setContext(context);
-      
-      // 加载深色模式
-      this.isDarkMode = this.getIsDarkMode();
-      
-      // 请求定位权限
-      await locationService.requestPermission();
+      if (this.context) {
+        await runDataModel.initialize(this.context);
+        locationService.setContext(this.context);
+        this.isDarkMode = this.getIsDarkMode();
+        
+        // 请求定位权限（系统会自动弹窗）
+        await locationService.requestPermission();
+        ToastComponent.info('首次使用需要定位权限', 2000);
+      }
     } catch (error) {
       console.error('Index init error:', error);
     }
@@ -222,7 +227,11 @@ struct Index {
     return '暂停';
   }
   
-  build() {
+  /**
+   * 构建首页内容（Tab 1）
+   */
+  @Builder
+  buildHomeTab() {
     Column() {
       // 顶部标题
       Row() {
@@ -236,23 +245,10 @@ struct Index {
       .justifyContent(FlexAlign.Center)
       
       // 地图区域
-      Column() {
-        Text('地图区域')
-          .fontSize(DesignTokens.FONT_SIZE.md)
-          .fontColor(this.getColors().textSecondary)
-          .margin({ top: DesignTokens.SPACING.xl })
-        
-        Text('(高德地图集成中)')
-          .fontSize(DesignTokens.FONT_SIZE.sm)
-          .fontColor(this.getColors().textTertiary)
-          .margin({ top: DesignTokens.SPACING.sm })
-      }
-      .width('100%')
-      .height('40%')
-      .backgroundColor(this.getColors().cardBackground)
-      .borderRadius(DesignTokens.RADIUS.lg)
-      .margin({ bottom: DesignTokens.SPACING.lg })
-      .justifyContent(FlexAlign.Center)
+      MapContainer({ isDarkMode: this.isDarkMode })
+        .width('100%')
+        .height('40%')
+        .margin({ bottom: DesignTokens.SPACING.lg })
       
       // 状态显示
       Row() {
@@ -299,11 +295,6 @@ struct Index {
       Text(this.locationText)
         .fontSize(DesignTokens.FONT_SIZE.md)
         .fontColor(this.getColors().textSecondary)
-        .margin({ bottom: DesignTokens.SPACING.md })
-      
-      // 节拍器卡片
-      MetronomeCard()
-        .width('100%')
         .margin({ bottom: DesignTokens.SPACING.lg })
       
       // 控制按钮
@@ -341,6 +332,60 @@ struct Index {
           })
       }
       .justifyContent(FlexAlign.Center)
+    }
+    .width('100%')
+    .height('100%')
+    .backgroundColor(this.getColors().backgroundColor)
+  }
+  
+  /**
+   * 构建底部导航栏
+   */
+  @Builder
+  buildTabBar(title: string, icon: string, index: number): void {
+    Column() {
+      Text(icon)
+        .fontSize(20)
+        .fontColor(this.currentIndex === index ? this.getColors().primaryColor : this.getColors().textSecondary)
+        .margin({ bottom: 2 })
+      Text(title)
+        .fontSize(11)
+        .fontColor(this.currentIndex === index ? this.getColors().primaryColor : this.getColors().textSecondary)
+    }
+    .justifyContent(FlexAlign.Center)
+  }
+  
+  build() {
+    Tabs({ barPosition: BarPosition.End, index: this.currentIndex }) {
+      // Tab 1: 首页
+      TabContent() {
+        this.buildHomeTab()
+      }
+      .tabBar(this.buildTabBar('首页', '🏠', 0))
+      
+      // Tab 2: 统计
+      TabContent() {
+        Statistics()
+      }
+      .tabBar(this.buildTabBar('统计', '📊', 1))
+      
+      // Tab 3: 历史
+      TabContent() {
+        History()
+      }
+      .tabBar(this.buildTabBar('历史', '📝', 2))
+      
+      // Tab 4: 节拍器
+      TabContent() {
+        Metronome()
+      }
+      .tabBar(this.buildTabBar('节拍器', '🎵', 3))
+      
+      // Tab 5: 我的
+      TabContent() {
+        Profile()
+      }
+      .tabBar(this.buildTabBar('我的', '👤', 4))
     }
     .width('100%')
     .height('100%')

@@ -17,7 +17,6 @@ import { runDataModel } from '../utils/RunDataModel';
 import { DesignTokens, type ColorTheme } from '../constants/DesignTokens';
 import { common } from '@kit.AbilityKit';
 
-@Entry
 @Component
 export struct Statistics {
   @State totalRuns: number = 0;
@@ -30,8 +29,8 @@ export struct Statistics {
   }
   
   async aboutToAppear() {
+    const context = getContext(this) as common.UIAbilityContext;
     try {
-      const context = getContext(this) as common.UIAbilityContext;
       await runDataModel.initialize(context);
       this.isDarkMode = this.getIsDarkMode();
       this.loadStatistics();
