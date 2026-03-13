@@ -1,0 +1,13 @@
+{
+  "name": "focusforest",
+  "version": "1.0.0",
+  "description": "专注森林 - 专注计时器 + 白噪音 + 种树游戏化",
+  "main": "",
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@ohos/hypium": "1.0.6"
+  }
+}

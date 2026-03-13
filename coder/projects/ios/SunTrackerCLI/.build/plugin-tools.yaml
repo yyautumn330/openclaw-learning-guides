@@ -1,0 +1,81 @@
+client:
+  name: basic
+  file-system: device-agnostic
+tools: {}
+targets:
+  "PackageStructure": ["<PackageStructure>"]
+  "SunTrackerCLI-arm64-apple-macosx26.0-debug.exe": ["<SunTrackerCLI-arm64-apple-macosx26.0-debug.exe>"]
+  "SunTrackerCLI-arm64-apple-macosx26.0-debug.module": ["<SunTrackerCLI-arm64-apple-macosx26.0-debug.module>"]
+  "main": ["<SunTrackerCLI-arm64-apple-macosx26.0-debug.exe>","<SunTrackerCLI-arm64-apple-macosx26.0-debug.module>"]
+  "test": ["<SunTrackerCLI-arm64-apple-macosx26.0-debug.exe>","<SunTrackerCLI-arm64-apple-macosx26.0-debug.module>"]
+default: "main"
+nodes:
+  "/Users/autumn/.openclaw/workspace/SunTrackerCLI/Sources/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI":
+    is-mutated: true
+commands:
+  "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI-entitlement.plist":
+    tool: write-auxiliary-file
+    inputs: ["<entitlement-plist>","<com.apple.security.get-task-allow>"]
+    outputs: ["/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI-entitlement.plist"]
+    description: "Write auxiliary file /Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI-entitlement.plist"
+
+  "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/autumn/.openclaw/workspace/SunTrackerCLI/Sources/main.swift"]
+    outputs: ["/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.build/sources"]
+    description: "Write auxiliary file /Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.build/sources"
+
+  "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.build/main.swift.o"]
+    outputs: ["/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.product/Objects.LinkFileList"
+
+  "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt":
+    tool: write-auxiliary-file
+    inputs: ["<swift-get-version>","/Library/Developer/CommandLineTools/usr/bin/swiftc"]
+    outputs: ["/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"]
+    always-out-of-date: "true"
+    description: "Write auxiliary file /Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"
+
+  "<SunTrackerCLI-arm64-apple-macosx26.0-debug.exe>":
+    tool: phony
+    inputs: ["<SunTrackerCLI-arm64-apple-macosx26.0-debug.exe-CodeSigning>"]
+    outputs: ["<SunTrackerCLI-arm64-apple-macosx26.0-debug.exe>"]
+
+  "<SunTrackerCLI-arm64-apple-macosx26.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.build/main.swift.o","/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/Modules/SunTrackerCLI.swiftmodule"]
+    outputs: ["<SunTrackerCLI-arm64-apple-macosx26.0-debug.module>"]
+
+  "C.SunTrackerCLI-arm64-apple-macosx26.0-debug.exe":
+    tool: shell
+    inputs: ["/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.build/main.swift.o","/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.product/Objects.LinkFileList"]
+    outputs: ["/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI"]
+    description: "Linking ./.build/arm64-apple-macosx/debug/SunTrackerCLI"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-L","/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug","-o","/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI","-module-name","SunTrackerCLI","-Xlinker","-no_warn_duplicate_libraries","-emit-executable","-Xlinker","-alias","-Xlinker","_SunTrackerCLI_main","-Xlinker","_main","-Xlinker","-rpath","-Xlinker","@loader_path","@/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.product/Objects.LinkFileList","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/usr/lib/swift-6.2/macosx","-target","arm64-apple-macosx13.0","-Xlinker","-add_ast_path","-Xlinker","/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/Modules/SunTrackerCLI.swiftmodule","-I","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-L","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-plugin-path","/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g"]
+
+  "C.SunTrackerCLI-arm64-apple-macosx26.0-debug.exe-entitlements":
+    tool: shell
+    inputs: ["/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI","/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI-entitlement.plist"]
+    outputs: ["<SunTrackerCLI-arm64-apple-macosx26.0-debug.exe-CodeSigning>"]
+    description: "Applying debug entitlements to ./.build/arm64-apple-macosx/debug/SunTrackerCLI"
+    args: ["codesign","--force","--sign","-","--entitlements","/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI-entitlement.plist","/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI"]
+
+  "C.SunTrackerCLI-arm64-apple-macosx26.0-debug.module":
+    tool: shell
+    inputs: ["/Users/autumn/.openclaw/workspace/SunTrackerCLI/Sources/main.swift","/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt","/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.build/sources"]
+    outputs: ["/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.build/main.swift.o","/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/Modules/SunTrackerCLI.swiftmodule"]
+    description: "Compiling Swift Module 'SunTrackerCLI' (1 sources)"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","SunTrackerCLI","-emit-dependencies","-emit-module","-emit-module-path","/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/Modules/SunTrackerCLI.swiftmodule","-output-file-map","/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.build/output-file-map.json","-incremental","-c","@/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.build/sources","-I","/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx13.0","-incremental","-enable-batch-mode","-serialize-diagnostics","-index-store-path","/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j16","-DSWIFT_PACKAGE","-DDEBUG","-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE","-module-cache-path","/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-Xfrontend","-entry-point-function-name","-Xfrontend","SunTrackerCLI_main","-swift-version","5","-I","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-L","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-plugin-path","/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","suntrackercli"]
+
+  "PackageStructure":
+    tool: package-structure-tool
+    inputs: ["/Users/autumn/.openclaw/workspace/SunTrackerCLI/Sources/","/Users/autumn/.openclaw/workspace/SunTrackerCLI/Package.swift","/Users/autumn/.openclaw/workspace/SunTrackerCLI/Package.resolved"]
+    outputs: ["<PackageStructure>"]
+    description: "Planning build"
+    allow-missing-inputs: true
+

@@ -1,0 +1,15 @@
+{
+  "stt_engine": "whisper_cpp",
+  "tts_engine": "pyttsx3",
+  "whisper_model": "base",
+  "whisper_cpp_path": "./whisper.cpp",
+  "language": "en",
+  "hotkey": "ctrl+shift+v",
+  "auto_listen": false,
+  "elevenlabs_api_key": "",
+  "elevenlabs_voice_id": "21m00Tcm4TlvDq8ikWAM",
+  "openai_api_key": "",
+  "volume": 0.8,
+  "rate": 200,
+  "voice_index": 0
+}

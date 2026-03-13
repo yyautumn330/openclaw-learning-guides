@@ -1,0 +1,17 @@
+{
+  "signingConfigs": [
+    {
+      "name": "default",
+      "type": "Debug",
+      "material": {
+        "storePassword": "0000001B5F9B53801C25CAF4A6C2C5A2D6D3E8E9F0A1B2C3D4E5F607182930AABBCCDDEEFF",
+        "keyAlias": "debugKey",
+        "keyPassword": "0000001B0E92E9886F7D8C9A5B4C3D2E1F0A9B8C7D6E5F403122131415161718191A1B1C",
+        "certPath": "",
+        "keyPath": "",
+        "profile": ""
+      }
+    }
+  ],
+  "ignoreCertCheck": true
+}

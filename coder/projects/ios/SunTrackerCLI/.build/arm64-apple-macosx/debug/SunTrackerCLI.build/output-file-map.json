@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.build/master.swiftdeps"
+  },
+  "/Users/autumn/.openclaw/workspace/SunTrackerCLI/Sources/main.swift": {
+    "dependencies": "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.build/main.d",
+    "object": "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.build/main.swift.o",
+    "swiftmodule": "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.build/main~partial.swiftmodule",
+    "swift-dependencies": "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.build/main.swiftdeps",
+    "diagnostics": "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.build/main.dia"
+  }
+}

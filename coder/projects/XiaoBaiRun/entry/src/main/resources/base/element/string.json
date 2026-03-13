@@ -1,0 +1,20 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "小白快跑模块"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "小白快跑入口"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "小白快跑"
+    },
+    {
+      "name": "location_reason",
+      "value": "需要定位权限来记录跑步轨迹"
+    }
+  ]
+}

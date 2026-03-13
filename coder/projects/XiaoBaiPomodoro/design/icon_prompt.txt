@@ -1,0 +1,15 @@
+Simple flat app icon design for a Pomodoro timer app. Clean minimalist style.
+
+Requirements:
+- Background: Pure white #FFFFFF, completely clean and simple
+- Main subject: Simple red tomato silhouette in the center
+- Tomato color: Natural red #FF6B6B
+- One small green leaf on top: #4CAF50
+- Style: Flat design, no gradients, no shadows, no 3D effects
+- Very simple and recognizable
+- Professional app icon look
+- Similar to Focus Keeper or Forest app icons
+- Square format, content centered
+- High quality, crisp edges
+
+Generate a 512x512 PNG app icon.

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, initial-scale=1.0">
+    <title>番茄专注钟 - 统计页面</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #F8F9FA;
+            width: 1080px;
+            height: 1920px;
+            padding: 60px 40px;
+        }
+        .status-bar {
+            width: 100%;
+            height: 44px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 40px;
+        }
+        .header {
+            font-size: 42px;
+            font-weight: 700;
+            color: #212529;
+            margin-bottom: 50px;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 24px;
+            padding: 28px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .stat-card-title {
+            font-size: 18px;
+            color: #868E96;
+            margin-bottom: 12px;
+        }
+        .stat-card-value {
+            font-size: 56px;
+            font-weight: 700;
+            color: #212529;
+        }
+        .stat-card-subtitle {
+            font-size: 16px;
+            color: #51CF66;
+            margin-top: 8px;
+            font-weight: 500;
+        }
+        .chart-section {
+            background: white;
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .chart-title {
+            font-size: 18px;
+            color: #868E96;
+            margin-bottom: 24px;
+        }
+        .chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            height: 280px;
+            padding: 0 10px;
+        }
+        .chart-bar {
+            width: 60px;
+            background: linear-gradient(180deg, #FF6B6B, #FF8F8F);
+            border-radius: 12px 12px 0 0;
+            position: relative;
+        }
+        .chart-label {
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            color: #868E96;
+        }
+        .home-indicator {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px;
+            height: 5px;
+            background: #DEE2E6;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="status-bar" style="background: linear-gradient(180deg, #FF6B6B, #FF8F8F);">
+        <span>9:41</span>
+        <span>📶 🔋</span>
+    </div>
+    <div class="header">📊 统计数据</div>
+    
+    <div class="stat-card">
+        <div class="stat-card-title">今日专注</div>
+        <div class="stat-card-value">4 小时</div>
+        <div class="stat-card-subtitle">↑ 比昨天 +30 分钟</div>
+    </div>
+    
+    <div class="stat-card">
+        <div class="stat-card-title">本周番茄数</div>
+        <div class="stat-card-value">28 个</div>
+        <div class="stat-card-subtitle">平均每天 4 个</div>
+    </div>
+    
+    <div class="chart-section">
+        <div class="chart-title">周趋势</div>
+        <div class="chart">
+            <div class="chart-bar" style="height: 60%;"><span class="chart-label">一</span></div>
+            <div class="chart-bar" style="height: 80%;"><span class="chart-label">二</span></div>
+            <div class="chart-bar" style="height: 45%;"><span class="chart-label">三</span></div>
+            <div class="chart-bar" style="height: 90%;"><span class="chart-label">四</span></div>
+            <div class="chart-bar" style="height: 70%;"><span class="chart-label">五</span></div>
+            <div class="chart-bar" style="height: 100%;"><span class="chart-label">六</span></div>
+            <div class="chart-bar" style="height: 85%;"><span class="chart-label">日</span></div>
+        </div>
+    </div>
+    
+    <div class="home-indicator"></div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI'
+relocations:
+  - { offset: 0x9744B, size: 0x8, addend: 0x0, symName: _SunTrackerCLI_main, symObjAddr: 0x0, symBinAddr: 0x100000D58, symSize: 0x44 }
+  - { offset: 0x97470, size: 0x8, addend: 0x0, symName: '_$s13SunTrackerCLI7trackerA2ACvp', symObjAddr: 0xBA18, symBinAddr: 0x10000C1D8, symSize: 0x0 }
+  - { offset: 0x9757E, size: 0x8, addend: 0x0, symName: _SunTrackerCLI_main, symObjAddr: 0x0, symBinAddr: 0x100000D58, symSize: 0x44 }
+  - { offset: 0x9759C, size: 0x8, addend: 0x0, symName: '_$s13SunTrackerCLIAACMa', symObjAddr: 0x44, symBinAddr: 0x100000D9C, symSize: 0x24 }
+  - { offset: 0x97650, size: 0x8, addend: 0x0, symName: '_$sSd13SunTrackerCLIE16degreesToRadiansSdvg', symObjAddr: 0xAF8, symBinAddr: 0x100001850, symSize: 0x44 }
+  - { offset: 0x9767E, size: 0x8, addend: 0x0, symName: '_$sSd13SunTrackerCLIE16radiansToDegreesSdvg', symObjAddr: 0xB3C, symBinAddr: 0x100001894, symSize: 0x44 }
+  - { offset: 0x976AC, size: 0x8, addend: 0x0, symName: '_$s10Foundation8CalendarV9ComponentOAESHAAWl', symObjAddr: 0x5700, symBinAddr: 0x100006458, symSize: 0x6C }
+  - { offset: 0x976C0, size: 0x8, addend: 0x0, symName: '_$sS2dSFsWl', symObjAddr: 0x576C, symBinAddr: 0x1000064C4, symSize: 0x64 }
+  - { offset: 0x976D4, size: 0x8, addend: 0x0, symName: ___swift_instantiateConcreteTypeFromMangledNameV2, symObjAddr: 0x57D0, symBinAddr: 0x100006528, symSize: 0x68 }
+  - { offset: 0x976E8, size: 0x8, addend: 0x0, symName: '_$s10Foundation4DateVSgWOb', symObjAddr: 0x5838, symBinAddr: 0x100006590, symSize: 0xBC }
+  - { offset: 0x976FC, size: 0x8, addend: 0x0, symName: '_$s10Foundation4DateVSgWOh', symObjAddr: 0x58F4, symBinAddr: 0x10000664C, symSize: 0x68 }
+  - { offset: 0x97710, size: 0x8, addend: 0x0, symName: '_$sS2SSysWl', symObjAddr: 0x595C, symBinAddr: 0x1000066B4, symSize: 0x64 }
+  - { offset: 0x97724, size: 0x8, addend: 0x0, symName: '_$sSo15NSDateFormatterCMa', symObjAddr: 0x59C0, symBinAddr: 0x100006718, symSize: 0x60 }
+  - { offset: 0x97738, size: 0x8, addend: 0x0, symName: '_$sSSWOh', symObjAddr: 0x5A20, symBinAddr: 0x100006778, symSize: 0x28 }
+  - { offset: 0x9774C, size: 0x8, addend: 0x0, symName: '_$ss26DefaultStringInterpolationVWOh', symObjAddr: 0x5A48, symBinAddr: 0x1000067A0, symSize: 0x28 }
+  - { offset: 0x97760, size: 0x8, addend: 0x0, symName: '_$s10Foundation4DateVSgWOc', symObjAddr: 0x5A70, symBinAddr: 0x1000067C8, symSize: 0xBC }
+  - { offset: 0x97774, size: 0x8, addend: 0x0, symName: '_$sSnySdGSnyxGSXsWl', symObjAddr: 0x5B2C, symBinAddr: 0x100006884, symSize: 0x74 }
+  - { offset: 0x97788, size: 0x8, addend: 0x0, symName: ___swift_instantiateConcreteTypeFromMangledNameAbstractV2, symObjAddr: 0x5BA0, symBinAddr: 0x1000068F8, symSize: 0x70 }
+  - { offset: 0x9779C, size: 0x8, addend: 0x0, symName: '_$s13SunTrackerCLI9AstronomyVMa', symObjAddr: 0x5C10, symBinAddr: 0x100006968, symSize: 0x14 }
+  - { offset: 0x977B0, size: 0x8, addend: 0x0, symName: '_$sSa12_endMutationyyF', symObjAddr: 0x5C44, symBinAddr: 0x10000699C, symSize: 0xC }
+  - { offset: 0x97850, size: 0x8, addend: 0x0, symName: '_$ss27_finalizeUninitializedArrayySayxGABnlF', symObjAddr: 0x8F4, symBinAddr: 0x10000164C, symSize: 0x40 }
+  - { offset: 0x9787A, size: 0x8, addend: 0x0, symName: '_$ss5print_9separator10terminatoryypd_S2StFfA0_', symObjAddr: 0x23A0, symBinAddr: 0x1000030F8, symSize: 0x2C }
+  - { offset: 0x97896, size: 0x8, addend: 0x0, symName: '_$ss5print_9separator10terminatoryypd_S2StFfA1_', symObjAddr: 0x23CC, symBinAddr: 0x100003124, symSize: 0x2C }
+  - { offset: 0x9790F, size: 0x8, addend: 0x0, symName: '_$s13SunTrackerCLIAACABycfC', symObjAddr: 0x68, symBinAddr: 0x100000DC0, symSize: 0x38 }
+  - { offset: 0x9794F, size: 0x8, addend: 0x0, symName: '_$s13SunTrackerCLI9AstronomyV22calculateSolarPosition4date8latitude9longitudeSd7azimuth_Sd9elevationt10Foundation4DateV_S2dtFZ', symObjAddr: 0xA0, symBinAddr: 0x100000DF8, symSize: 0x854 }
+  - { offset: 0x97BF8, size: 0x8, addend: 0x0, symName: '_$s13SunTrackerCLI9AstronomyV9julianDay33_FB112691E1C8B386873FF7D6E109EF30LL4year5month3day4hour6minuteS2d_S4dtFZ', symObjAddr: 0x934, symBinAddr: 0x10000168C, symSize: 0x1C4 }
+  - { offset: 0x97CE8, size: 0x8, addend: 0x0, symName: '_$s13SunTrackerCLI9AstronomyV09calculateA5Times4date8latitude9longitude10Foundation4DateVSg7sunrise_AK6sunsettAJ_S2dtFZ', symObjAddr: 0xB80, symBinAddr: 0x1000018D8, symSize: 0xF64 }
+  - { offset: 0x97EAD, size: 0x8, addend: 0x0, symName: '_$s13SunTrackerCLI9AstronomyVACycfC', symObjAddr: 0x1AE4, symBinAddr: 0x10000283C, symSize: 0x4 }
+  - { offset: 0x97ED5, size: 0x8, addend: 0x0, symName: '_$s13SunTrackerCLIAAC3runyyF', symObjAddr: 0x1AE8, symBinAddr: 0x100002840, symSize: 0x8B8 }
+  - { offset: 0x97FA1, size: 0x8, addend: 0x0, symName: '_$s13SunTrackerCLIAAC11printHeader33_FB112691E1C8B386873FF7D6E109EF30LLyyF', symObjAddr: 0x23F8, symBinAddr: 0x100003150, symSize: 0xD4 }
+  - { offset: 0x97FC5, size: 0x8, addend: 0x0, symName: '_$s13SunTrackerCLIAAC14displayResults33_FB112691E1C8B386873FF7D6E109EF30LL7azimuth9elevation7sunrise6sunset8latitude9longitudeySd_Sd10Foundation4DateVSgANS2dtF', symObjAddr: 0x24CC, symBinAddr: 0x100003224, symSize: 0x1D4C }
+  - { offset: 0x9811B, size: 0x8, addend: 0x0, symName: '_$sSo15NSDateFormatterCABycfC', symObjAddr: 0x4218, symBinAddr: 0x100004F70, symSize: 0x2C }
+  - { offset: 0x9812F, size: 0x8, addend: 0x0, symName: '_$s13SunTrackerCLIAAC20directionFromAzimuth33_FB112691E1C8B386873FF7D6E109EF30LLySSSdF', symObjAddr: 0x4244, symBinAddr: 0x100004F9C, symSize: 0x40C }
+  - { offset: 0x98162, size: 0x8, addend: 0x0, symName: '_$s13SunTrackerCLIAAC13startTracking33_FB112691E1C8B386873FF7D6E109EF30LL8latitude9longitudeySd_SdtF', symObjAddr: 0x4650, symBinAddr: 0x1000053A8, symSize: 0x102C }
+  - { offset: 0x98228, size: 0x8, addend: 0x0, symName: '_$s13SunTrackerCLIAACfd', symObjAddr: 0x567C, symBinAddr: 0x1000063D4, symSize: 0x24 }
+  - { offset: 0x9824C, size: 0x8, addend: 0x0, symName: '_$s13SunTrackerCLIAACfD', symObjAddr: 0x56A0, symBinAddr: 0x1000063F8, symSize: 0x3C }
+  - { offset: 0x98270, size: 0x8, addend: 0x0, symName: '_$s13SunTrackerCLIAACABycfc', symObjAddr: 0x56DC, symBinAddr: 0x100006434, symSize: 0x24 }
+  - { offset: 0x98294, size: 0x8, addend: 0x0, symName: '_$sSo15NSDateFormatterCABycfcTO', symObjAddr: 0x5C24, symBinAddr: 0x10000697C, symSize: 0x20 }
+...

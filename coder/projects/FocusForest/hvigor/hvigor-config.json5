@@ -1,0 +1,26 @@
+{
+  "modelVersion": "6.0.0",
+  "dependencies": {
+    "@ohos/hvigor-ohos-plugin": "6.0.0"
+  },
+  "execution": {
+    "daemon": true,
+    "incremental": true,
+    "parallel": true
+  },
+  "logging": {
+    "level": "info"
+  },
+  "debugging": {
+    "stacktrace": false
+  },
+  "nodeOptions": {
+    "maxOldSpaceSize": 8192
+  },
+  "parallelization": {
+    "enabled": true
+  },
+  "daemon": {
+    "enabled": true
+  }
+}

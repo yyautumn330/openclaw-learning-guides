@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "skills": {
+    "find-skills": {
+      "version": "0.1.0",
+      "installedAt": 1772633051427
+    },
+    "auto-updater": {
+      "version": "1.0.0",
+      "installedAt": 1772669342451
+    },
+    "brave-search": {
+      "version": "1.0.1",
+      "installedAt": 1772679664044
+    },
+    "drawthings": {
+      "version": "1.0.0",
+      "installedAt": 1772689809219
+    }
+  }
+}

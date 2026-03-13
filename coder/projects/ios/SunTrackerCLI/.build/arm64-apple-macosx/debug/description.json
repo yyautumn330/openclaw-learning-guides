@@ -1,0 +1,239 @@
+{
+  "builtTestProducts" : [
+
+  ],
+  "copyCommands" : {
+
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.SunTrackerCLI-arm64-apple-macosx26.0-debug.module" : {
+      "executable" : "/Library/Developer/CommandLineTools/usr/bin/swiftc",
+      "fileList" : "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.build/sources",
+      "importPath" : "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/autumn/.openclaw/workspace/SunTrackerCLI/Sources/main.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.build/sources"
+        }
+      ],
+      "isLibrary" : false,
+      "moduleName" : "SunTrackerCLI",
+      "moduleOutputPath" : "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/Modules/SunTrackerCLI.swiftmodule",
+      "objects" : [
+        "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.build/main.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx13.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j16",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-Xfrontend",
+        "-entry-point-function-name",
+        "-Xfrontend",
+        "SunTrackerCLI_main",
+        "-swift-version",
+        "5",
+        "-I",
+        "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+        "-L",
+        "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+        "-plugin-path",
+        "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "suntrackercli"
+      ],
+      "outputFileMapPath" : "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.build/main.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/Modules/SunTrackerCLI.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/autumn/.openclaw/workspace/SunTrackerCLI/Sources/main.swift"
+      ],
+      "tempsPath" : "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.build",
+      "wholeModuleOptimization" : false
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "SunTrackerCLI" : [
+      "/Library/Developer/CommandLineTools/usr/bin/swiftc",
+      "-module-name",
+      "SunTrackerCLI",
+      "-package-name",
+      "suntrackercli",
+      "-c",
+      "/Users/autumn/.openclaw/workspace/SunTrackerCLI/Sources/main.swift",
+      "-I",
+      "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx13.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j16",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-Xfrontend",
+      "-entry-point-function-name",
+      "-Xfrontend",
+      "SunTrackerCLI_main",
+      "-swift-version",
+      "5",
+      "-I",
+      "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+      "-L",
+      "/Library/Developer/CommandLineTools/Library/Developer/Frameworks",
+      "-plugin-path",
+      "/Library/Developer/CommandLineTools/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "suntrackercli",
+      "-driver-use-frontend-path",
+      "/Library/Developer/CommandLineTools/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "SunTrackerCLI" : [
+
+    ]
+  },
+  "testDiscoveryCommands" : {
+
+  },
+  "testEntryPointCommands" : {
+
+  },
+  "traitConfiguration" : {
+    "default" : {
+
+    }
+  },
+  "writeCommands" : {
+    "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI-entitlement.plist" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<entitlement-plist>"
+        },
+        {
+          "kind" : "virtual",
+          "name" : "<com.apple.security.get-task-allow>"
+        }
+      ],
+      "outputFilePath" : "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI-entitlement.plist"
+    },
+    "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/autumn/.openclaw/workspace/SunTrackerCLI/Sources/main.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.build/sources"
+    },
+    "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.build/main.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/SunTrackerCLI.product/Objects.LinkFileList"
+    },
+    "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Library/Developer/CommandLineTools/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/Users/autumn/.openclaw/workspace/SunTrackerCLI/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"
+    }
+  }
+}

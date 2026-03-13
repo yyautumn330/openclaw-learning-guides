@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, initial-scale=1.0">
+    <title>番茄专注钟 - 设置页面</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #F8F9FA;
+            width: 1080px;
+            height: 1920px;
+            padding: 60px 40px;
+        }
+        .status-bar {
+            width: 100%;
+            height: 44px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 40px;
+        }
+        .header {
+            font-size: 42px;
+            font-weight: 700;
+            color: #212529;
+            margin-bottom: 50px;
+        }
+        .settings-group {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .settings-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 28px;
+            border-bottom: 1px solid #E9ECEF;
+        }
+        .settings-item:last-child {
+            border-bottom: none;
+        }
+        .settings-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-right: 16px;
+        }
+        .settings-left {
+            display: flex;
+            align-items: center;
+        }
+        .settings-label {
+            font-size: 18px;
+            color: #212529;
+            font-weight: 500;
+        }
+        .settings-value {
+            color: #868E96;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .toggle {
+            width: 60px;
+            height: 34px;
+            background: #FF6B6B;
+            border-radius: 17px;
+            position: relative;
+            transition: background 0.3s;
+        }
+        .toggle::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: white;
+            border-radius: 50%;
+            top: 2px;
+            right: 2px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+        .toggle.off {
+            background: #DEE2E6;
+        }
+        .toggle.off::after {
+            transform: translateX(-26px);
+        }
+        .section-title {
+            font-size: 14px;
+            color: #868E96;
+            margin: 30px 0 16px 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .home-indicator {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px;
+            height: 5px;
+            background: #DEE2E6;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="status-bar" style="background: linear-gradient(180deg, #FF6B6B, #FF8F8F);">
+        <span>9:41</span>
+        <span>📶 🔋</span>
+    </div>
+    <div class="header">⚙️ 设置</div>
+    
+    <div class="section-title">番茄设置</div>
+    <div class="settings-group">
+        <div class="settings-item">
+            <div class="settings-left">
+                <div class="settings-icon" style="background: #FFE3E3;">🍅</div>
+                <span class="settings-label">专注时长</span>
+            </div>
+            <span class="settings-value">25 分钟 ›</span>
+        </div>
+        <div class="settings-item">
+            <div class="settings-left">
+                <div class="settings-icon" style="background: #E3F9E5;">☕</div>
+                <span class="settings-label">短休息</span>
+            </div>
+            <span class="settings-value">5 分钟 ›</span>
+        </div>
+        <div class="settings-item">
+            <div class="settings-left">
+                <div class="settings-icon" style="background: #E3F0FF;">🌴</div>
+                <span class="settings-label">长休息</span>
+            </div>
+            <span class="settings-value">15 分钟 ›</span>
+        </div>
+        <div class="settings-item">
+            <div class="settings-left">
+                <div class="settings-icon" style="background: #FFF3E0;">🔄</div>
+                <span class="settings-label">长休息间隔</span>
+            </div>
+            <span class="settings-value">4 个番茄 ›</span>
+        </div>
+    </div>
+    
+    <div class="section-title">提醒</div>
+    <div class="settings-group">
+        <div class="settings-item">
+            <div class="settings-left">
+                <div class="settings-icon" style="background: #F3E5F5;">🔔</div>
+                <span class="settings-label">开始提醒</span>
+            </div>
+            <div class="toggle"></div>
+        </div>
+        <div class="settings-item">
+            <div class="settings-left">
+                <div class="settings-icon" style="background: #F3E5F5;">⏰</div>
+                <span class="settings-label">结束提醒</span>
+            </div>
+            <div class="toggle"></div>
+        </div>
+        <div class="settings-item">
+            <div class="settings-left">
+                <div class="settings-icon" style="background: #F3E5F5;">📳</div>
+                <span class="settings-label">震动反馈</span>
+            </div>
+            <div class="toggle off"></div>
+        </div>
+    </div>
+    
+    <div class="section-title">外观</div>
+    <div class="settings-group">
+        <div class="settings-item">
+            <div class="settings-left">
+                <div class="settings-icon" style="background: #FFF8E1;">🎨</div>
+                <span class="settings-label">主题颜色</span>
+            </div>
+            <span class="settings-value">番茄红 ›</span>
+        </div>
+        <div class="settings-item">
+            <div class="settings-left">
+                <div class="settings-icon" style="background: #E8F5E9;">🌙</div>
+                <span class="settings-label">深色模式</span>
+            </div>
+            <div class="toggle off"></div>
+        </div>
+    </div>
+    
+    <div class="section-title">通用</div>
+    <div class="settings-group">
+        <div class="settings-item">
+            <div class="settings-left">
+                <div class="settings-icon" style="background: #E3F2FD;">📊</div>
+                <span class="settings-label">桌面小组件</span>
+            </div>
+            <span class="settings-value">配置 ›</span>
+        </div>
+        <div class="settings-item">
+            <div class="settings-left">
+                <div class="settings-icon" style="background: #E8F5E9;">☁️</div>
+                <span class="settings-label">iCloud 同步</span>
+            </div>
+            <div class="toggle"></div>
+        </div>
+        <div class="settings-item">
+            <div class="settings-left">
+                <div class="settings-icon" style="background: #FFF3E0;">❓</div>
+                <span class="settings-label">帮助与反馈</span>
+            </div>
+            <span class="settings-value">›</span>
+        </div>
+        <div class="settings-item">
+            <div class="settings-left">
+                <div class="settings-icon" style="background: #F3E5F5;">ℹ️</div>
+                <span class="settings-label">关于</span>
+            </div>
+            <span class="settings-value">v1.0.0 ›</span>
+        </div>
+    </div>
+    
+    <div class="home-indicator"></div>
+</body>
+</html>

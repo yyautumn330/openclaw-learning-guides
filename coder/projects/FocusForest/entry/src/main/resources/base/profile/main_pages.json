@@ -1,0 +1,8 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/Forest",
+    "pages/Sounds",
+    "pages/Profile"
+  ]
+}

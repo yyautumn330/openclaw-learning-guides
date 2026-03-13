@@ -1,0 +1,141 @@
+52 个技能深度评测！这样选不踩坑
+
+👋 哈喽大家好～
+
+上一篇教大家搭建 AI 助手
+很多小伙伴问：技能怎么选？
+
+今天带来 52 个官方技能评测！
+看完就知道装哪些了～
+
+—
+
+📦 技能生态
+
+【官方技能】52 个⭐⭐⭐⭐⭐
+团队出品，质量保障
+
+【社区技能】14000+ 个⭐⭐⭐
+质量参差不齐
+
+今天评测官方技能！
+
+—
+
+🏆 新手必装 Top 10
+
+1️⃣ weather 天气查询⭐⭐⭐⭐⭐
+用途：查天气
+使用：/weather 北京
+推荐：100%
+
+2️⃣ github GitHub 操作⭐⭐⭐⭐⭐
+用途：issues、PRs、CI
+使用：/github trending
+推荐：开发者必备
+
+3️⃣ brave-search 搜索⭐⭐⭐⭐⭐
+用途：搜索信息
+使用：/search 教程
+推荐：必装
+
+4️⃣ summarize 总结⭐⭐⭐⭐⭐
+用途：总结 URL、PDF
+使用：/summarize 网址
+推荐：信息神器
+
+5️⃣ gog Google⭐⭐⭐⭐
+用途：Gmail、日历
+使用：需 OAuth
+推荐：Google 用户
+
+6️⃣ feishu 飞书⭐⭐⭐⭐⭐
+用途：飞书集成
+使用：企业微信
+推荐：打工人必备
+
+7️⃣ himalaya 邮件⭐⭐⭐⭐
+用途：邮件管理
+使用：IMAP/SMTP
+推荐：邮件多的人
+
+8️⃣ healthcheck 安全⭐⭐⭐⭐
+用途：安全检查
+使用：自动扫描
+推荐：安全意识
+
+9️⃣ coding-agent 代码⭐⭐⭐⭐⭐
+用途：代码生成
+使用：自然语言
+推荐：开发者
+
+🔟 auto-updater 更新⭐⭐⭐⭐
+用途：自动更新
+使用：后台运行
+推荐：懒人必备
+
+—
+
+🎯 按场景选择
+
+【打工人】👇
+• feishu 飞书
+• weather 天气
+• brave-search 搜索
+• summarize 总结
+
+【开发者】👇
+• github GitHub
+• coding-agent 代码
+• gh-issues 问题
+• healthcheck 安全
+
+【学生党】👇
+• weather 天气
+• brave-search 搜索
+• himalaya 邮件
+• auto-updater 更新
+
+【自媒体】👇
+• summarize 总结
+• brave-search 搜索
+• feishu 飞书
+• gog Google
+
+—
+
+📥 安装方法
+
+批量安装👇
+
+npx clawhub install weather
+npx clawhub install github
+npx clawhub install brave-search
+
+或一次性👇
+
+npx clawhub install <技能名>
+
+—
+
+💡 使用技巧
+
+• 先装必装 Top 10
+• 按需安装其他
+• 定期更新技能
+• 有问题评论区
+
+—
+
+🏷️ 标签
+
+#OpenClaw #AI 技能 #效率工具 #打工人 #开发者 #学生党 #自媒体 #技能推荐 #软件评测 #职场技能
+
+—
+
+📌 小贴士
+
+• 52 个官方技能
+• 14000+ 社区技能
+• 按需安装
+• 持续更新中～

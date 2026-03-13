@@ -1,0 +1,40 @@
+{
+  "string": [
+    {
+      "name": "app_name",
+      "value": "小白番茄专注钟"
+    },
+    {
+      "name": "app_desc",
+      "value": "基于番茄工作法的专注计时器"
+    },
+    {
+      "name": "module_desc",
+      "value": "小白番茄专注钟主模块"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "小白番茄专注钟主入口"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "小白番茄专注钟"
+    },
+    {
+      "name": "notification_permission_reason",
+      "value": "用于发送番茄计时结束提醒"
+    },
+    {
+      "name": "keep_background_running_reason",
+      "value": "用于在后台继续运行番茄计时器，确保计时不中断"
+    },
+    {
+      "name": "timer_completed",
+      "value": "番茄钟完成！"
+    },
+    {
+      "name": "timer_notification_content",
+      "value": "恭喜完成一个番茄钟，休息一下吧！"
+    }
+  ]
+}

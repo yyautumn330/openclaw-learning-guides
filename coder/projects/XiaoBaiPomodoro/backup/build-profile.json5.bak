@@ -1,0 +1,51 @@
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "/Users/autumn/.ohos/config/default_XiaoBaiPomodoro_P2J-X35KSIEebhK_a1MiynwgLwk-0ODoPNVV3OV4dPs=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B40A4DC99CF3322B16B52A1668D46C5310DAA945A9159EBE7ACB56A5E6CB993F5E61B3B1ABEB5A7",
+          "profile": "/Users/autumn/.ohos/config/default_XiaoBaiPomodoro_P2J-X35KSIEebhK_a1MiynwgLwk-0ODoPNVV3OV4dPs=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/autumn/.ohos/config/default_XiaoBaiPomodoro_P2J-X35KSIEebhK_a1MiynwgLwk-0ODoPNVV3OV4dPs=.p12",
+          "storePassword": "0000001B4B4CD7E4ADFE0EC777B9AAA4EF458C4BC2461D283A2A9BC7BFD1CB1E5AF38423E9B09A455B9E21"
+        }
+      }
+    ],
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "compileSdkVersion": "6.0.2(22)",
+        "compatibleSdkVersion": "6.0.2(22)",
+        "runtimeOS": "HarmonyOS",
+        "targetSdkVersion": "6.0.2(22)"
+      }
+    ],
+    "buildModeSet": [
+      {
+        "name": "debug"
+      },
+      {
+        "name": "release"
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}

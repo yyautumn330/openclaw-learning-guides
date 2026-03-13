@@ -1,0 +1,16 @@
+
+{
+  "name": "xiaobaipomodoro",
+  "version": "1.0.0",
+  "modelVersion": "6.0.0",
+  "description": "小白番茄专注钟 - 鸿蒙版番茄工作法计时器",
+  "main": "",
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@ohos/hypium": "1.0.18",
+    "@ohos/hvigor-ohos-plugin": "1.0.0"
+  }
+}

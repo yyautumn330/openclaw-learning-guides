@@ -1,0 +1,413 @@
+# 小红书发布格式 - 02-技能安装指南
+
+> **转换时间**: 2026-03-04 21:10  
+> **格式**: 小红书友好 (无 Markdown，纯文本 + Emoji)  
+> **字数**: 约 3000 字 (适合小红书)
+
+---
+
+## 📱 小红书正文 (直接复制发布)
+
+标题任选一个👇
+
+【52 个 OpenClaw 技能深度评测！这样选不踩坑】
+【技能安装全攻略！这 10 个必装】
+【OpenClaw 技能怎么选？看这篇就够了】
+【打工人效率翻倍！10 个神级技能推荐】
+【AI 助手技能大全！52 个官方技能评测】
+
+---
+
+正文内容👇
+
+👋 哈喽大家好，我是小白～
+
+上一篇教大家 5 分钟搭建 AI 助手
+很多小伙伴问：技能那么多，该怎么选？
+
+今天给大家带来 52 个官方技能的深度评测！
+看完就知道该装哪些了～
+
+—
+
+📦 OpenClaw 技能生态
+
+OpenClaw 有两类技能：
+
+【官方技能】52 个
+OpenClaw 团队出品，质量有保障
+⭐ 推荐度：五星
+
+【社区技能】14000+ 个
+社区开发者贡献，质量参差不齐
+⭐ 推荐度：三星
+
+今天重点评测 52 个官方技能！
+
+—
+
+🏆 新手必装 Top 10
+
+这 10 个技能，装了绝对不亏！
+
+1️⃣ weather - 天气查询 ⭐⭐⭐⭐⭐
+用途：查询天气和预报
+亮点：无需 API key，数据准确
+使用：/weather 北京
+推荐指数：100%
+
+2️⃣ github - GitHub 操作 ⭐⭐⭐⭐⭐
+用途：issues、PRs、CI 查询
+亮点：完整 GitHub API 支持
+使用：/github trending
+推荐指数：开发者必备
+
+3️⃣ brave-search - Web 搜索 ⭐⭐⭐⭐⭐
+用途：搜索最新信息
+亮点：突破 AI 知识截止时间
+使用：/search OpenClaw 教程
+推荐指数：必装
+
+4️⃣ summarize - 内容总结 ⭐⭐⭐⭐⭐
+用途：总结 URL、PDF、音视频
+亮点：多格式支持，节省时间
+使用：/summarize 网址
+推荐指数：信息处理神器
+
+5️⃣ gog - Google 集成 ⭐⭐⭐⭐
+用途：Gmail、Calendar、Drive
+亮点：Google 全家桶一站式
+使用：需要 Google OAuth
+推荐指数：Google 用户必备
+
+6️⃣ notion - 知识库管理 ⭐⭐⭐⭐
+用途：Notion 页面、数据库
+亮点：自动化笔记整理
+使用：需要 Notion Token
+推荐指数：知识工作者推荐
+
+7️⃣ nano-pdf - PDF 编辑 ⭐⭐⭐⭐
+用途：PDF 合并、拆分、编辑
+亮点：自然语言指令
+使用：/pdf 合并 file1.pdf file2.pdf
+推荐指数：办公实用
+
+8️⃣ openai-whisper - 语音转文字 ⭐⭐⭐⭐
+用途：会议记录、采访整理
+亮点：本地运行，无需 API
+使用：/transcribe audio.mp3
+推荐指数：会议神器
+
+9️⃣ obsidian - 笔记管理 ⭐⭐⭐⭐
+用途：Obsidian 知识库
+亮点：双链笔记自动化
+使用：需要 Obsidian 路径
+推荐指数：双链用户推荐
+
+🔟 auto-updater - 自动更新 ⭐⭐⭐⭐
+用途：自动更新 OpenClaw 和技能
+亮点：省心省力
+使用：自动运行
+推荐指数：懒人必备
+
+—
+
+📁 按场景分类推荐
+
+【💼 办公生产力】
+
+推荐组合：gog + notion + summarize
+
+• gog - Google Workspace
+• notion - Notion 集成
+• obsidian - Obsidian 管理
+• trello - 任务看板
+• slack - 团队沟通
+
+【💻 开发者工具】
+
+推荐组合：github + mcporter + brave-search
+
+• github - GitHub 操作
+• mcporter - MCP 服务器管理
+• discord - Discord 集成
+• tmux - 终端复用
+
+【🎨 创意创作】
+
+推荐组合：nano-banana-pro + video-frames
+
+• nano-banana-pro - AI 绘画
+• openai-image-gen - DALL-E 3
+• video-frames - 视频帧提取
+• sag - 语音合成
+
+【📊 数据处理】
+
+推荐组合：nano-pdf + feishu_bitable
+
+• nano-pdf - PDF 编辑
+• feishu_bitable - 多维表格
+• feishu_doc - 飞书文档
+• oracle - 数据查询
+
+【🏠 智能家居】
+
+推荐组合：sonoscli + openhue
+
+• sonoscli - Sonos 音箱
+• openhue - Philips Hue 灯光
+• spotify-player - Spotify 播放
+
+【📱 通讯社交】
+
+推荐组合：feishu + telegram
+
+• wechat - 微信接入
+• feishu - 飞书集成
+• telegram - Telegram 机器人
+• discord - Discord 机器人
+• imsg - iMessage
+
+—
+
+🔧 安装方法
+
+【单个安装】
+
+npx clawhub@latest install 技能名
+
+示例：
+npx clawhub@latest install weather
+npx clawhub@latest install github
+
+【批量安装】
+
+基础包：
+npx clawhub@latest install weather github brave-search summarize
+
+办公包：
+npx clawhub@latest install gog notion obsidian
+
+开发者包：
+npx clawhub@latest install github mcporter discord
+
+【从作者安装】
+
+npx clawhub@latest install steipete/weather
+npx clawhub@latest install steipete/summarize
+
+—
+
+⚠️ 避坑指南
+
+【1. 速率限制问题】
+
+现象：安装时提示 Rate limit exceeded
+
+原因：ClawHub 服务器限制频繁请求
+
+解决：
+• 等待 15-30 分钟后重试
+• 使用代理切换 IP
+• 手动从 GitHub 克隆
+
+【2. 技能冲突】
+
+现象：多个技能功能重叠
+
+示例：humanizer vs humanize-ai-text
+
+建议：选择一个即可，避免冗余
+
+【3. 需要额外配置】
+
+需要 API Key 的技能：
+• gog (Google OAuth)
+• notion (Notion Token)
+• nano-banana-pro (Gemini API)
+• sag (ElevenLabs API)
+
+建议：先安装免费技能，再配置付费服务
+
+【4. 版本兼容性】
+
+现象：技能安装后无法使用
+
+检查：
+openclaw --version
+openclaw plugins list
+
+解决：更新 OpenClaw 到最新版
+
+—
+
+✅ 高质量技能特征
+
+看到这些特征，可以放心安装：
+
+✅ 文档完善 - README 清晰，有使用示例
+✅ 版本活跃 - 定期更新，bug 修复及时
+✅ 社区反馈 - 下载量高，星标多
+✅ 作者信誉 - 知名作者或官方出品
+
+—
+
+❌ 低质量技能特征
+
+看到这些特征，要谨慎：
+
+❌ 无文档 - 不知道如何使用
+❌ 长期未更新 - 可能已废弃
+❌ 功能单一 - 几行代码的包装
+❌ 无 issue 追踪 - 问题无法反馈
+
+—
+
+🎯 我的推荐配置
+
+【新手入门】4 个
+
+npx clawhub@latest install weather github brave-search summarize
+
+总评：覆盖日常 80% 需求
+
+【知识工作者】7 个
+
+npx clawhub@latest install weather github brave-search summarize gog notion auto-updater
+
+总评：办公效率翻倍
+
+【开发者】7 个
+
+npx clawhub@latest install github mcporter brave-search discord tmux sag auto-updater
+
+总评：开发全流程覆盖
+
+【创意工作者】6 个
+
+npx clawhub@latest install nano-banana-pro video-frames openai-whisper sag summarize obsidian
+
+总评：创作效率提升
+
+—
+
+📊 技能统计
+
+官方技能总数：52 个
+
+分类统计：
+• 办公生产力：12 个
+• 开发者工具：8 个
+• 创意创作：10 个
+• 数据处理：6 个
+• 智能家居：5 个
+• 通讯社交：8 个
+• 系统工具：3 个
+
+下载 Top 5：
+1. self-improving-agent (95.1k)
+2. tavily-search (81.2k)
+3. gog (79.9k)
+4. find-skills (78.1k)
+5. summarize (70.1k)
+
+—
+
+💡 使用技巧
+
+【1. 先试用再批量安装】
+不要一次性装太多
+先用几个核心技能
+根据需求逐步扩展
+
+【2. 定期清理不用的技能】
+每季度检查一次
+删除长期不用的技能
+保持系统清爽
+
+【3. 关注技能更新】
+开启自动更新
+及时获取新功能
+修复已知 bug
+
+【4. 善用技能文档】
+每个技能都有 README
+安装前先看文档
+了解使用方法和限制
+
+—
+
+❓ 常见问题
+
+Q：技能安装失败怎么办？
+A：检查网络连接，等待 15 分钟后重试
+
+Q：技能太多会不会影响性能？
+A：不会，技能是按需加载的
+
+Q：可以安装社区技能吗？
+A：可以，但要注意质量，优先选星标多的
+
+Q：技能需要付费吗？
+A：技能本身免费，但部分需要 API Key（有免费额度）
+
+—
+
+📚 学习资源
+
+技能市场：clawhub.ai (14000+ 社区技能)
+官方文档：docs.openclaw.ai
+GitHub：github.com/openclaw/openclaw
+
+—
+
+👇 下一篇预告
+
+《让 AI 主动帮你干活 - 心跳任务配置》
+• 什么是心跳任务
+• 如何配置定时任务
+• 主动模式实战
+• 自动化工作流
+
+—
+
+💬 有任何问题欢迎评论区留言！
+我会逐一解答～
+
+觉得有用记得点赞❤️收藏⭐️关注哦！
+
+—
+
+🏷️ 标签
+
+#OpenClaw #AI 技能 #效率工具 #自动化 #技术教程 #AI 助手 #技能推荐 #打工人 #效率神器 #开源项目 #程序员 #数码科技 #软件推荐 #AI 工具 #技能安装
+
+—
+
+📸 配图建议（9 宫格）
+
+P1：封面图（技能图标集合，蓝色主题）
+P2：技能生态概览图
+P3：Top 10 技能列表
+P4：办公技能推荐
+P5：开发者技能推荐
+P6：创意技能推荐
+P7：安装命令示例
+P8：避坑指南
+P9：关注引导
+
+—
+
+📝 发布注意事项
+
+1. 标题选一个最吸引人的
+2. 正文直接复制，已优化格式
+3. 配图 9 张最佳（4-6 张也可）
+4. 标签全部复制
+5. 发布后及时回复评论
+
+—
+
+*转换完成时间：2026-03-04 21:10*
+*格式：小红书友好 (无 Markdown 语法)*

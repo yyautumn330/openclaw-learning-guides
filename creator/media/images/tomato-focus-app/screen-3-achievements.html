@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, initial-scale=1.0">
+    <title>番茄专注钟 - 成就页面</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(180deg, #212529 0%, #495057 100%);
+            width: 1080px;
+            height: 1920px;
+            padding: 60px 40px;
+        }
+        .status-bar {
+            width: 100%;
+            height: 44px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 40px;
+        }
+        .header {
+            font-size: 42px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+        }
+        .header-subtitle {
+            font-size: 18px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 50px;
+        }
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .achievement-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 24px 16px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .achievement-card.locked {
+            opacity: 0.5;
+        }
+        .achievement-icon {
+            font-size: 56px;
+            margin-bottom: 12px;
+        }
+        .achievement-name {
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .achievement-desc {
+            color: rgba(255,255,255,0.6);
+            font-size: 11px;
+            margin-bottom: 12px;
+        }
+        .progress-bar {
+            background: rgba(255,255,255,0.2);
+            height: 6px;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            background: linear-gradient(90deg, #FFD700, #FFA500);
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.3s;
+        }
+        .achievement-card.locked .progress-fill {
+            background: rgba(255,255,255,0.3);
+        }
+        .home-indicator {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 140px;
+            height: 5px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="status-bar">
+        <span>9:41</span>
+        <span>📶 🔋</span>
+    </div>
+    <div class="header">🏆 成就</div>
+    <div class="header-subtitle">解锁成就，成为专注大师</div>
+    
+    <div class="achievements-grid">
+        <div class="achievement-card">
+            <div class="achievement-icon">🔥</div>
+            <div class="achievement-name">连续达人</div>
+            <div class="achievement-desc">连续 7 天打卡</div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 100%;"></div>
+            </div>
+        </div>
+        
+        <div class="achievement-card">
+            <div class="achievement-icon">⭐</div>
+            <div class="achievement-name">百果成就</div>
+            <div class="achievement-desc">完成 100 个番茄</div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 68%;"></div>
+            </div>
+        </div>
+        
+        <div class="achievement-card">
+            <div class="achievement-icon">🎯</div>
+            <div class="achievement-name">专注大师</div>
+            <div class="achievement-desc">累计 100 小时</div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 45%;"></div>
+            </div>
+        </div>
+        
+        <div class="achievement-card">
+            <div class="achievement-icon">⚡</div>
+            <div class="achievement-name">早起鸟儿</div>
+            <div class="achievement-desc">连续 5 天早起</div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 80%;"></div>
+            </div>
+        </div>
+        
+        <div class="achievement-card">
+            <div class="achievement-icon">🌙</div>
+            <div class="achievement-name">夜猫子</div>
+            <div class="achievement-desc">深夜专注 10 次</div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 30%;"></div>
+            </div>
+        </div>
+        
+        <div class="achievement-card locked">
+            <div class="achievement-icon">💎</div>
+            <div class="achievement-name">完美周</div>
+            <div class="achievement-desc">单周 40 个番茄</div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 0%;"></div>
+            </div>
+        </div>
+        
+        <div class="achievement-card">
+            <div class="achievement-icon">🚀</div>
+            <div class="achievement-name">极速者</div>
+            <div class="achievement-desc">15 分钟快速专注</div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 90%;"></div>
+            </div>
+        </div>
+        
+        <div class="achievement-card">
+            <div class="achievement-icon">🏅</div>
+            <div class="achievement-name">月冠军</div>
+            <div class="achievement-desc">单月 100 个番茄</div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 55%;"></div>
+            </div>
+        </div>
+        
+        <div class="achievement-card locked">
+            <div class="achievement-icon">👑</div>
+            <div class="achievement-name">传奇</div>
+            <div class="achievement-desc">365 天连续打卡</div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 2%;"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="home-indicator"></div>
+</body>
+</html>
