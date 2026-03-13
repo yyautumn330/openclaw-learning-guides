@@ -6,7 +6,7 @@ set -e
 
 WORKSPACE="/Users/autumn/.openclaw/workspace"
 LOG_FILE="/Users/autumn/.openclaw/logs/github-backup.log"
-REPO="yyautumn330/openclaw-code-backup"
+REPO="git@github.com:yyautumn330/openclaw-code-backup.git"
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 
 log() {
