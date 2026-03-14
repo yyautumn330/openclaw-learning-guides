@@ -1,0 +1,6 @@
+// @keepTs
+// @ts-nocheck
+import { Permissions } from '@ohos.abilityAccessCtrl';
+export declare class PermissionUtil {
+    static hasPerminssion(permissionName: Permissions): boolean;
+}

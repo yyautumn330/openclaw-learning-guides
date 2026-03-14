@@ -1,0 +1,113 @@
+{
+  "lockVersion": "1.0",
+  "settings": {
+    "resolveConflict": true,
+    "resolveConflictStrict": false,
+    "installAll": true
+  },
+  "overrides": {},
+  "overrideDependencyMap": {},
+  "modules": {
+    ".": {
+      "name": "",
+      "dependencies": {},
+      "devDependencies": {},
+      "dynamicDependencies": {},
+      "maskedByOverrideDependencyMap": false
+    },
+    "entry": {
+      "name": "entry",
+      "dependencies": {
+        "@amap/amap_lbs_common": {
+          "specifier": ">=1.2.2",
+          "version": "11.1.0"
+        },
+        "@amap/amap_lbs_map3d": {
+          "specifier": ">=2.2.3",
+          "version": "11.1.0"
+        },
+        "@amap/amap_lbs_search": {
+          "specifier": ">=1.0.1",
+          "version": "11.1.0"
+        }
+      },
+      "devDependencies": {},
+      "dynamicDependencies": {},
+      "maskedByOverrideDependencyMap": false
+    }
+  },
+  "packages": {
+    "@amap/amap_lbs_common@11.1.0": {
+      "integrity": "sha512-QrTKpKUtUtl4NbrNVKIdTthB1lu1wlW9QE04dgph8mMmw7GDbVo1Tk3nGnNoLU7jYqon2gUVEFxEVeWe3+JPGA==",
+      "storePath": "oh_modules/.ohpm/@amap+amap_lbs_common@11.1.0",
+      "dependencies": {
+        "@ohos/crypto-js": "2.0.4"
+      },
+      "dynamicDependencies": {},
+      "dev": false,
+      "dynamic": false,
+      "maskedByOverrideDependencyMap": false
+    },
+    "@amap/amap_lbs_search@11.1.0": {
+      "integrity": "sha512-LWpy91vcTausAgnR7y/cXZbkXneg3JhnPx5Rc+Xhh4SXDdFfwzlb2LkQ3hXnoUoau4C2DQrK3HziwOtI4b1rTg==",
+      "storePath": "oh_modules/.ohpm/@amap+amap_lbs_search@11.1.0",
+      "dependencies": {
+        "@amap/amap_lbs_common": "11.1.0"
+      },
+      "dynamicDependencies": {},
+      "dev": false,
+      "dynamic": false,
+      "maskedByOverrideDependencyMap": false
+    },
+    "@ohos/crypto-js@2.0.4": {
+      "integrity": "sha512-589ur6oqU1UNibqefMly2cwEeEhkSoCAA3uc+oNUwRnYYtevn/kQnO+Coi36N+VJSeeg/uFzZk1K/wUMdovpOA==",
+      "storePath": "oh_modules/.ohpm/@ohos+crypto-js@2.0.4",
+      "dependencies": {},
+      "dynamicDependencies": {},
+      "dev": false,
+      "dynamic": false,
+      "maskedByOverrideDependencyMap": false
+    },
+    "@amap/amap_lbs_map3d@11.1.0": {
+      "integrity": "sha512-EFZWHDsQ2RJpAhK8AEqvF6xiJVQCBDtfLlJGySN5HqtqZsdjSWZTBrVLXOuzJfmBTqzesA59G8cmwnTECY/WFQ==",
+      "storePath": "oh_modules/.ohpm/@amap+amap_lbs_map3d@11.1.0",
+      "dependencies": {
+        "libAMapOpenMapJNI.so": "oh_modules/.ohpm/@amap+amap_lbs_map3d@11.1.0/oh_modules/@amap/amap_lbs_map3d/src/main/cpp/types/libAMapOpenMapJNI.so",
+        "@amap/amap_lbs_common": "11.1.0",
+        "@amap/amap_lbs_location": "11.1.0"
+      },
+      "dynamicDependencies": {},
+      "dev": false,
+      "dynamic": false,
+      "maskedByOverrideDependencyMap": false
+    },
+    "@amap/amap_lbs_location@11.1.0": {
+      "integrity": "sha512-7s/o+/XnNF+Ky1iBEXaqFogyBH2Y2oU9vWF01cclMKcfXKo/gUDsXMZgwH+YKSdj2IBNFWYHO6/UmYWujkZ58w==",
+      "storePath": "oh_modules/.ohpm/@amap+amap_lbs_location@11.1.0",
+      "dependencies": {
+        "@amap/amap_lbs_common": "11.1.0",
+        "libAMapOpenLocation.so": "oh_modules/.ohpm/@amap+amap_lbs_location@11.1.0/oh_modules/@amap/amap_lbs_location/src/main/cpp/types/libAMapOpenLocation.so"
+      },
+      "dynamicDependencies": {},
+      "dev": false,
+      "dynamic": false,
+      "maskedByOverrideDependencyMap": false
+    },
+    "libAMapOpenMapJNI.so@file:oh_modules/.ohpm/@amap+amap_lbs_map3d@11.1.0/oh_modules/@amap/amap_lbs_map3d/src/main/cpp/types/libAMapOpenMapJNI.so": {
+      "storePath": "oh_modules/.ohpm/@amap+amap_lbs_map3d@11.1.0/oh_modules/@amap/amap_lbs_map3d/src/main/cpp/types/libAMapOpenMapJNI.so",
+      "dependencies": {},
+      "dynamicDependencies": {},
+      "dev": false,
+      "dynamic": false,
+      "maskedByOverrideDependencyMap": false
+    },
+    "libAMapOpenLocation.so@file:oh_modules/.ohpm/@amap+amap_lbs_location@11.1.0/oh_modules/@amap/amap_lbs_location/src/main/cpp/types/libAMapOpenLocation.so": {
+      "storePath": "oh_modules/.ohpm/@amap+amap_lbs_location@11.1.0/oh_modules/@amap/amap_lbs_location/src/main/cpp/types/libAMapOpenLocation.so",
+      "dependencies": {},
+      "dynamicDependencies": {},
+      "dev": false,
+      "dynamic": false,
+      "maskedByOverrideDependencyMap": false
+    }
+  }
+}

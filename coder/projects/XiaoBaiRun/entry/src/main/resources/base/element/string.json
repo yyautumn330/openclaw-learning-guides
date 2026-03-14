@@ -15,6 +15,22 @@
     {
       "name": "location_reason",
       "value": "需要定位权限来记录跑步轨迹"
+    },
+    {
+      "name": "internet_reason",
+      "value": "需要网络权限来加载地图和同步数据"
+    },
+    {
+      "name": "background_reason",
+      "value": "需要后台运行权限来持续播放节拍器"
+    },
+    {
+      "name": "notification_reason",
+      "value": "需要通知权限来显示节拍器状态"
+    },
+    {
+      "name": "amap_key",
+      "value": "1b1487f32d95f0bd6a418f1337503eb3"
     }
   ]
 }

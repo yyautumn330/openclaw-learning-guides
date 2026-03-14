@@ -15,6 +15,7 @@
 
 import { runDataModel, TrackPoint } from '../utils/RunDataModel';
 import { locationService, LocationInfo } from '../services/LocationService';
+import { metronomeService } from '../services/MetronomeService';
 import { DesignTokens } from '../constants/DesignTokens';
 import { common } from '@kit.AbilityKit';
 import { ToastComponent } from '../components/Toast';
@@ -50,6 +51,7 @@ struct Index {
       if (this.context) {
         await runDataModel.initialize(this.context);
         locationService.setContext(this.context);
+        metronomeService.setContext(this.context);
         this.isDarkMode = this.getIsDarkMode();
         
         // 请求定位权限（系统会自动弹窗）
@@ -142,6 +144,8 @@ struct Index {
    * 位置更新回调
    */
   onLocationUpdate(location: LocationInfo) {
+    console.info('Location update:', JSON.stringify(location));
+    
     if (this.lastLocation) {
       // 计算距离 (Haversine 公式)
       const dist = this.calculateDistance(
@@ -151,11 +155,26 @@ struct Index {
         location.longitude
       );
       
+      // 过滤无效位置变化（GPS 漂移）
+      if (dist < 2) {
+        console.info('Distance too small, ignoring');
+        return;
+      }
+      
       this.distance += dist;
       this.pace = this.calculatePace(this.duration, this.distance);
     }
     
     this.lastLocation = location;
+    
+    // 保存轨迹点
+    runDataModel.addTrackPoint({
+      latitude: location.latitude,
+      longitude: location.longitude,
+      altitude: location.altitude,
+      timestamp: location.timestamp
+    });
+    
     runDataModel.updateRunData(this.distance, this.duration);
   }
   
@@ -342,7 +361,7 @@ struct Index {
    * 构建底部导航栏
    */
   @Builder
-  buildTabBar(title: string, icon: string, index: number): void {
+  buildTabBar(title: string, icon: string, index: number) {
     Column() {
       Text(icon)
         .fontSize(20)

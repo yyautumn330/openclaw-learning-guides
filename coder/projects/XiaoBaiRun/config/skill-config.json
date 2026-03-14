@@ -1,0 +1,298 @@
+{
+  "name": "小白快跑",
+  "version": "2.0.0",
+  "description": "专业的跑步数据采集与分析技能包，支持鸿蒙/iOS双平台",
+  "author": "小白",
+  "license": "MIT",
+  "platforms": ["harmonyos", "ios"],
+  "features": {
+    "gps_tracking": {
+      "enabled": true,
+      "accuracy": "high",
+      "interval_ms": 1000,
+      "distance_interval_m": 5,
+      "background_support": true,
+      "adaptive_mode": true
+    },
+    "metrics": {
+      "distance": {
+        "enabled": true,
+        "unit": "km",
+        "precision": 2
+      },
+      "duration": {
+        "enabled": true,
+        "unit": "s",
+        "format": "HH:mm:ss"
+      },
+      "pace": {
+        "enabled": true,
+        "unit": "min/km",
+        "format": "m:ss"
+      },
+      "cadence": {
+        "enabled": true,
+        "unit": "spm",
+        "min": 120,
+        "max": 200
+      },
+      "heart_rate": {
+        "enabled": true,
+        "unit": "bpm",
+        "min": 40,
+        "max": 220",
+        "source": "sensor"
+      },
+      "calories": {
+        "enabled": true,
+        "formula": "distance_km * weight_kg * 1.036",
+        "default_weight": 65
+      },
+      "elevation": {
+        "enabled": true,
+        "unit": "m",
+        "threshold": 10
+      }
+    },
+    "metronome": {
+      "enabled": true,
+      "bpm_range": [120, 200],
+      "voice_prompt": {
+        "enabled": true,
+        "interval_km": 1,
+        "language": "zh-CN",
+        "voice": "female"
+      },
+      "audio": {
+        "enabled": true,
+        "volume": 0.7,
+        "background_play": true
+      }
+    },
+    "sharing": {
+      "enabled": true,
+      "platforms": {
+        "wechat": {
+          "enabled": true,
+          "type": "image"
+        },
+        "weibo": {
+          "enabled": true,
+          "type": "image+text"
+        },
+        "qq": {
+          "enabled": true,
+          "type": "image"
+        },
+        "instagram": {
+          "enabled": true,
+          "type": "image"
+        },
+        "strava": {
+          "enabled": true,
+          "type": "gpx"
+        }
+      },
+      "report_image": {
+        "enabled": true,
+        "template": "minimal",
+        "quality": "high"
+      }
+    },
+    "training": {
+      "enabled": true,
+      "auto_plan": {
+        "enabled": true,
+        "based_on_history": true
+      },
+      "weekly_goal": {
+        "enabled": true,
+        "adjustable": true
+      },
+      "progress_tracking": {
+        "enabled": true,
+        "chart_type": "line"
+      },
+      "difficulty": {
+        "beginner": {
+          "weekly_goal_km": 10,
+          "max_distance_km": 5,
+          "recommended_days": 3
+        },
+        "intermediate": {
+          "weekly_goal_km": 20,
+          "max_distance_km": 10,
+          "recommended_days": 4
+        },
+        "advanced": {
+          "weekly_goal_km": 40,
+          "max_distance_km": 20,
+          "recommended_days": 5
+        }
+      }
+    },
+    "battery_optimization": {
+      "enabled": true,
+      "gps_mode": "adaptive",
+      "screen_off": true,
+      "location_interval": "dynamic",
+      "sensor_management": "smart",
+      "low_battery_threshold": 20,
+      "battery_saver_mode": true
+    }
+  },
+  "permissions": {
+    "harmonyos": [
+      {
+        "name": "ohos.permission.LOCATION",
+        "reason": "需要定位权限记录跑步轨迹",
+        "when": "inuse"
+      },
+      {
+        "name": "ohos.permission.APPROXIMATELY_LOCATION",
+        "reason": "需要模糊定位权限辅助定位",
+        "when": "inuse"
+      },
+      {
+        "name": "ohos.permission.ACTIVITY_MOTION",
+        "reason": "需要运动传感器权限采集步频数据",
+        "when": "inuse"
+      },
+      {
+        "name": "ohos.permission.NOTIFICATION_CONTROLLER",
+        "reason": "需要通知权限发送跑步提醒",
+        "when": "always"
+      },
+      {
+        "name": "ohos.permission.INTERNET",
+        "reason": "需要网络权限同步数据和分享",
+        "when": "always"
+      },
+      {
+        "name": "ohos.permission.WRITE_IMAGEVIDEO",
+        "reason": "需要存储权限保存跑步报告图片",
+        "when": "inuse"
+      }
+    ],
+    "ios": [
+      {
+        "name": "NSLocationWhenInUseUsageDescription",
+        "value": "需要定位权限记录跑步轨迹"
+      },
+      {
+        "name": "NSLocationAlwaysAndWhenInUseUsageDescription",
+        "value": "需要后台定位权限持续记录"
+      },
+      {
+        "name": "NSMotionUsageDescription",
+        "value": "需要运动传感器权限采集数据"
+      },
+      {
+        "name": "NSHealthShareUsageDescription",
+        "value": "需要健康数据权限同步心率信息"
+      },
+      {
+        "name": "NSHealthUpdateUsageDescription",
+        "value": "需要健康数据权限记录运动数据"
+      }
+    ]
+  },
+  "api_config": {
+    "harmonyos": {
+      "location": {
+        "api": "geolocationManager",
+        "priority": "ACCURACY",
+        "background_mode": "CONTINUOUS"
+      },
+      "storage": {
+        "api": "preferences",
+        "encryption": true"
+      },
+      "sensor": {
+        "heart_rate": "sensor.SensorId.HEART_RATE",
+        "step_counter": "sensor.SensorId.STEP_COUNTER",
+        "accelerometer": "sensor.SensorId.ACCELEROMETER"
+      }
+    },
+    "ios": {
+      "location": {
+        "api": "CoreLocation",
+        "accuracy": "kCLLocationAccuracyBest"
+      },
+      "storage": {
+        "api": "CoreData",
+        "cloud_sync": "iCloud"
+      },
+      "health": {
+        "api": "HealthKit",
+        "data_types": [
+          "HKQuantityTypeIdentifierDistanceWalkingRunning",
+          "HKQuantityTypeIdentifierHeartRate",
+          "HKQuantityTypeIdentifierActiveEnergyBurned"
+        ]
+      }
+    }
+  },
+  "data_schema": {
+    "run_record": {
+      "id": "string (UUID)",
+      "start_time": "timestamp",
+      "end_time": "timestamp",
+      "duration": "number (seconds)",
+      "distance": "number (meters)",
+      "pace": "number (seconds/km)",
+      "cadence": "number (steps/minute)",
+      "heart_rate_avg": "number (bpm)",
+      "calories": "number (kcal)",
+      "elevation_gain": "number (meters)",
+      "track_points": "array of TrackPoint",
+      "synced": "boolean",
+      "device_id": "string",
+      "created_at": "timestamp"
+    },
+    "track_point": {
+      "latitude": "number (WGS84)",
+      "longitude": "number (WGS84)",
+      "altitude": "number (meters)",
+      "timestamp": "number (ms)",
+      "accuracy": "number (meters)",
+      "speed": "number (m/s)",
+      "heart_rate": "number (bpm, optional)"
+    },
+    "training_plan": {
+      "id": "string (UUID)",
+      "user_id": "string",
+      "level": "string (beginner|intermediate|advanced)",
+      "weekly_goal_km": "number",
+      "schedule": "array of WorkoutSchedule",
+      "tips": "array of string",
+      "created_at": "timestamp",
+      "updated_at": "timestamp"
+    },
+    "workout_schedule": {
+      "day": "string (周一|周二...)",
+      "type": "string (steady|interval|tempo|long)",
+      "distance_km": "number",
+      "warmup_min": "number",
+      "cooldown_min": "number"
+    }
+  },
+  "performance_targets": {
+    "gps_accuracy": {
+      "excellent": "< 5m",
+      "good": "5-10m",
+      "acceptable": "10-20m",
+      "poor": "> 20m"
+    },
+    "battery_drain": {
+      "excellent": "< 5%/hour",
+      "good": "5-10%/hour",
+      "acceptable": "10-15%/hour",
+      "poor": "> 15%/hour"
+    },
+    "memory_usage": {
+      "track_points_limit": 10000,
+      "history_days_limit": 365
+    }
+  }
+}

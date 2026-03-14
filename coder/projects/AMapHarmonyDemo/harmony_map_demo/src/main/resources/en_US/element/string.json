@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "Harmony_map_demoAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "Harmony_map_demoAbility_label",
+      "value": "map3DDemo"
+    }
+  ]
+}

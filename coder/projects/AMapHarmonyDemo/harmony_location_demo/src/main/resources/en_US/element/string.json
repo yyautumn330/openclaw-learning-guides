@@ -1,0 +1,20 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "Harmony_location_demoAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "Harmony_location_demoAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "Harmony_location_permission_reason",
+      "value": "reason"
+    }
+  ]
+}

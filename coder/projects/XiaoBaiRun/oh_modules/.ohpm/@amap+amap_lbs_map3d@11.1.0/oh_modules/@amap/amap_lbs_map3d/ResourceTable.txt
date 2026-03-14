@@ -1,0 +1,3 @@
+string page_show 0x04000000
+media default_loading 0x04000001
+media default_loading_icon 0x04000002

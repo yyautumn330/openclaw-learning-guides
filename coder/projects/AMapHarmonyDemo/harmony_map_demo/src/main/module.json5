@@ -1,0 +1,54 @@
+{
+  "module": {
+    "name": "harmony_map_demo",
+    "type": "feature",
+    "description": "$string:module_desc",
+    "mainElement": "Harmony_map_demoAbility",
+    "deviceTypes": [
+      "phone",
+      "tablet",
+      "2in1"
+    ],
+    "deliveryWithInstall": true,
+    "installationFree": false,
+    "pages": "$profile:main_pages",
+    "abilities": [
+      {
+        "name": "Harmony_map_demoAbility",
+        "srcEntry": "./ets/harmony_map_demoability/Harmony_map_demoAbility.ets",
+        "description": "$string:Harmony_map_demoAbility_desc",
+        "icon": "$media:ic_launcher",
+        "label": "$string:Harmony_map_demoAbility_label",
+        "startWindowIcon": "$media:ic_launcher",
+        "startWindowBackground": "$color:start_window_background",
+        "exported": true,
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ]
+      }
+    ],
+    "routerMap": "$profile:route_map",
+    "requestPermissions": [    {
+      "name": "ohos.permission.APPROXIMATELY_LOCATION",
+      "reason": "$string:Harmony_navi_permission_reason",
+      "usedScene": {
+        "when": "always"
+      }
+    },
+      {
+        "name": "ohos.permission.LOCATION",
+        "reason": "$string:Harmony_navi_permission_reason",
+        "usedScene": {
+          "when": "always"
+        }
+      }
+    ]
+  }
+}

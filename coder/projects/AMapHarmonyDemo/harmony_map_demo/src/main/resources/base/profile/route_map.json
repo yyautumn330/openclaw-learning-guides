@@ -1,0 +1,67 @@
+{
+  "routerMap": [
+    {
+      "name": "DriveRouteDetailController",
+      "pageSourceFile": "src/main/ets/pages/controller/route/DriveRouteDetailController.ets",
+      "buildFunction": "DriveRouteDetailControllerBuilder",
+      "data": {
+        "description": "this is pageOne"
+      }
+    },
+    {
+      "name": "RideRouteDetailController",
+      "pageSourceFile": "src/main/ets/pages/controller/route/RideRouteDetailController.ets",
+      "buildFunction": "RideRouteDetailControllerBuilder",
+      "data": {
+        "description": "this is pageOne"
+      }
+    },
+    {
+      "name": "WalkRouteDetailController",
+      "pageSourceFile": "src/main/ets/pages/controller/route/WalkRouteDetailController.ets",
+      "buildFunction": "WalkRouteDetailControllerBuilder",
+      "data": {
+        "description": "this is pageOne"
+      }
+    },
+    {
+      "name": "TruckRouteDetailController",
+      "pageSourceFile": "src/main/ets/pages/controller/route/TruckRouteDetailController.ets",
+      "buildFunction": "TruckRouteDetailControllerBuilder",
+      "data": {
+        "description": "this is pageOne"
+      }
+    },
+    {
+      "name": "BusRouteDetailController",
+      "pageSourceFile": "src/main/ets/pages/controller/route/BusRouteDetailController.ets",
+      "buildFunction": "BusRouteDetailControllerBuilder",
+      "data": {
+        "description": "this is pageOne"
+      }
+    },
+    {
+      "name": "BusRouteController",
+      "pageSourceFile": "src/main/ets/pages/controller/route/BusRouteController.ets",
+      "buildFunction": "BusRouteControllerBuilder",
+      "data": {
+        "description": "this is pageOne"
+      }
+    },{
+      "name": "BusRouteDetailControllerV2",
+      "pageSourceFile": "src/main/ets/pages/controller/route/BusRouteDetailControllerV2.ets",
+      "buildFunction": "BusRouteDetailControllerV2Builder",
+      "data": {
+        "description": "this is pageOne"
+      }
+    },
+    {
+      "name": "BusRouteControllerV2",
+      "pageSourceFile": "src/main/ets/pages/controller/route/BusRouteControllerV2.ets",
+      "buildFunction": "BusRouteControllerV2Builder",
+      "data": {
+        "description": "this is pageOne"
+      }
+    }
+  ]
+}

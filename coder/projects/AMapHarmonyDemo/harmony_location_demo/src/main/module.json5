@@ -1,0 +1,92 @@
+{
+  "module": {
+    "name": "harmony_location_demo",
+    "type": "entry",
+    "description": "$string:module_desc",
+    "mainElement": "Harmony_location_demoAbility",
+    "deviceTypes": [
+      "phone",
+      "tablet",
+      "2in1"
+    ],
+    "deliveryWithInstall": true,
+    "installationFree": false,
+    "pages": "$profile:main_pages",
+    "routerMap": "$profile:route_map",
+    "abilities": [
+      {
+        "name": "Harmony_location_demoAbility",
+        "srcEntry": "./ets/harmony_location_demoability/Harmony_location_demoAbility.ets",
+        "description": "$string:Harmony_location_demoAbility_desc",
+        "icon": "$media:icon",
+        "label": "$string:Harmony_location_demoAbility_label",
+        "startWindowIcon": "$media:startIcon",
+        "startWindowBackground": "$color:start_window_background",
+        "backgroundModes": ["location"],
+        "exported": true,
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ]
+      }
+    ],
+    "requestPermissions": [
+      {
+        "name": "ohos.permission.APPROXIMATELY_LOCATION",
+        "reason": "$string:Harmony_location_permission_reason",
+        "usedScene": {
+          "abilities": [
+            "Harmony_location_demoAbility"
+          ],
+          "when": "always"
+        }
+      },
+      {
+        "name": "ohos.permission.LOCATION",
+        "reason": "$string:Harmony_location_permission_reason",
+        "usedScene": {
+          "abilities": [
+            "Harmony_location_demoAbility"
+          ],
+          "when": "always"
+        }
+      },
+      {
+        "name": "ohos.permission.LOCATION_IN_BACKGROUND",
+        "reason": "$string:Harmony_location_permission_reason",
+        "usedScene": {
+          "abilities": [
+            "Harmony_location_demoAbility"
+          ],
+          "when": "always"
+        }
+      },
+      {
+        "name": "ohos.permission.INTERNET",
+        "reason": "$string:Harmony_location_permission_reason",
+        "usedScene": {
+          "abilities": [
+            "Harmony_location_demoAbility"
+          ],
+          "when": "always"
+        }
+      },
+      {
+        "name": "ohos.permission.KEEP_BACKGROUND_RUNNING",
+        "reason": "$string:Harmony_location_permission_reason",
+        "usedScene": {
+          "abilities": [
+            "Harmony_location_demoAbility"
+          ],
+          "when": "always"
+        }
+      }
+    ]
+  }
+}

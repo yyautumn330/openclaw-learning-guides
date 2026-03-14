@@ -14,45 +14,22 @@
  */
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import { locationService, LocationInfo } from './LocationService';
 
 const TAG = 'MapService';
 const DOMAIN = 0x0000;
 
-/**
- * 地图配置
- */
-export interface MapConfig {
-  zoom: number;
-  center: LocationPoint;
-}
-
-/**
- * 位置点
- */
 export interface LocationPoint {
   latitude: number;
   longitude: number;
 }
 
-/**
- * 地图服务单例
- * 
- * 注意：HarmonyOS 地图组件需要高德地图 SDK
- * 当前使用占位实现，后续需要：
- * 1. 在 build-profile.json5 中添加高德地图依赖
- * 2. 在 module.json5 中配置地图权限
- * 3. 申请高德地图 API Key
- */
 export class MapService {
   private static instance: MapService;
   private isInitialized: boolean = false;
-  private currentLocation: LocationPoint | null = null;
   
   private constructor() {}
   
-  /**
-   * 获取单例实例
-   */
   static getInstance(): MapService {
     if (!MapService.instance) {
       MapService.instance = new MapService();
@@ -60,59 +37,34 @@ export class MapService {
     return MapService.instance;
   }
   
-  /**
-   * 初始化地图服务
-   */
   async initialize(): Promise<boolean> {
-    if (this.isInitialized) {
-      return true;
-    }
-    
+    if (this.isInitialized) return true;
+    this.isInitialized = true;
+    hilog.info(DOMAIN, TAG, 'MapService initialized');
+    return true;
+  }
+  
+  /**
+   * 获取当前位置（使用真实定位）
+   */
+  async getCurrentPosition(): Promise<LocationPoint | null> {
     try {
-      // TODO: 集成高德地图 SDK
-      // 1. 引入 @amap/map
-      // 2. 初始化地图 SDK
-      // 3. 设置 API Key
-      
-      hilog.info(DOMAIN, TAG, 'MapService initialized (placeholder mode)');
-      this.isInitialized = true;
-      return true;
+      // 使用 LocationService 的真实定位
+      const location: LocationInfo | null = await locationService.getCurrentLocation();
+      if (location) {
+        hilog.info(DOMAIN, TAG, 'Got real location: %{public}s,%{public}s', 
+                   location.latitude.toString(), location.longitude.toString());
+        return { latitude: location.latitude, longitude: location.longitude };
+      } else {
+        // 如果真实定位失败，使用默认位置
+        hilog.warn(DOMAIN, TAG, 'Real location unavailable, using default');
+        return { latitude: 39.90923, longitude: 116.397428 };
+      }
     } catch (error) {
-      hilog.error(DOMAIN, TAG, 'Initialize map service error: %{public}s', JSON.stringify(error) ?? '');
-      return false;
+      hilog.error(DOMAIN, TAG, 'Get position error: %{public}s', JSON.stringify(error) ?? '');
+      return { latitude: 39.90923, longitude: 116.397428 };
     }
-  }
-  
-  /**
-   * 设置中心点
-   */
-  setCenter(latitude: number, longitude: number): void {
-    this.currentLocation = { latitude, longitude };
-    hilog.info(DOMAIN, TAG, 'Map center set to: %{public}f, %{public}f', latitude, longitude);
-  }
-  
-  /**
-   * 获取当前位置
-   */
-  getCurrentLocation(): LocationPoint | null {
-    return this.currentLocation;
-  }
-  
-  /**
-   * 更新位置
-   */
-  updateLocation(latitude: number, longitude: number): void {
-    this.currentLocation = { latitude, longitude };
-    hilog.info(DOMAIN, TAG, 'Location updated: %{public}f, %{public}f', latitude, longitude);
-  }
-  
-  /**
-   * 检查是否已初始化
-   */
-  isReady(): boolean {
-    return this.isInitialized;
   }
 }
 
-// 导出单例
 export const mapService = MapService.getInstance();

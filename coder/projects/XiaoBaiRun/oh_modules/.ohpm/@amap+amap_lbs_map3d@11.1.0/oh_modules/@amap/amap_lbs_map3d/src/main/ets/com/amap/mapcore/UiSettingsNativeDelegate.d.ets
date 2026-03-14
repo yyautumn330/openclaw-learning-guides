@@ -1,0 +1,56 @@
+// @keepTs
+// @ts-nocheck
+import { p66 } from './interface/IAMapNativeDelegate';
+import { n49 } from './interface/IUiSettings';
+export declare class n72 implements n49 {
+    private a69;
+    private g263;
+    private h263;
+    private i263;
+    private j263;
+    private k263;
+    private l263;
+    private m263;
+    private n263;
+    private o263;
+    private logoPosition;
+    private c264;
+    private q263;
+    private x263;
+    private y263;
+    constructor(b264: p66);
+    getLogoPosition(): number;
+    r49(): boolean;
+    setIndoorSwitchEnabled(a264: boolean): void;
+    setLogoMarginRate(type: number, rate: number): void;
+    getLogoMarginRate(type: number): number;
+    setLogoLeftMargin(pixels: number): void;
+    setLogoBottomMargin(pixels: number): void;
+    setZoomInByScreenCenter(z263: boolean): void;
+    l93(): boolean;
+    s49(enable: boolean): void;
+    v167(): void;
+    isLogoEnable(): boolean;
+    isScaleControlsEnabled(): boolean;
+    isZoomControlsEnabled(): boolean;
+    isCompassEnabled(): boolean;
+    isMyLocationButtonEnabled(): boolean;
+    setLogoPosition(position: number): void;
+    setZoomPosition(position: number): void;
+    getZoomPosition(): number;
+    setScaleControlsEnabled(enabled: boolean): void;
+    setZoomControlsEnabled(enabled: boolean): void;
+    setCompassEnabled(enabled: boolean): void;
+    setMyLocationButtonEnabled(enabled: boolean): void;
+    setScrollGesturesEnabled(enabled: boolean): void;
+    setZoomGesturesEnabled(enabled: boolean): void;
+    setTiltGesturesEnabled(enabled: boolean): void;
+    setRotateGesturesEnabled(enabled: boolean): void;
+    setAllGesturesEnabled(enabled: boolean): void;
+    isScrollGesturesEnabled(): boolean;
+    isZoomGesturesEnabled(): boolean;
+    isTiltGesturesEnabled(): boolean;
+    isRotateGesturesEnabled(): boolean;
+    setGestureScaleByMapCenter(isGestureScaleByMapCenter: boolean): void;
+    isGestureScaleByMapCenter(): boolean;
+}

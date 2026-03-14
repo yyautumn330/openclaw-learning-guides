@@ -2,14 +2,16 @@
   "name": "entry",
   "version": "1.0.0",
   "modelVersion": "6.0.2",
-  "description": "小白番茄专注钟主模块",
+  "description": "小白快跑主模块",
   "main": "",
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
+    "@amap/amap_lbs_common": ">=1.2.2",
+    "@amap/amap_lbs_map3d": ">=2.2.3",
+    "@amap/amap_lbs_search": ">=1.0.1"
   },
-  "devDependencies": {
-  },
-  "overrides": {
-  }
+  "devDependencies": {},
+  "overrides": {},
+  "dynamicDependencies": {}
 }

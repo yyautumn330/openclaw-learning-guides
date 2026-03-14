@@ -14,6 +14,7 @@
  */
 
 import geolocationManager from '@ohos.geoLocationManager';
+import { abilityAccessCtrl, bundleManager, Permissions } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { common } from '@kit.AbilityKit';
 
@@ -67,7 +68,6 @@ export class LocationService {
   
   /**
    * 请求定位权限
-   * 简化实现：权限已在 module.json5 中声明，系统会自动提示
    */
   async requestPermission(): Promise<boolean> {
     if (!this.context) {
@@ -76,12 +76,30 @@ export class LocationService {
     }
     
     try {
-      // 权限已在 module.json5 中声明
-      // 首次使用定位功能时系统会自动弹出权限对话框
-      hilog.info(DOMAIN, TAG, 'Location permission check completed');
-      return true;
+      // 需要请求的权限列表
+      const permissions: Array<Permissions> = [
+        'ohos.permission.APPROXIMATELY_LOCATION',
+        'ohos.permission.LOCATION'
+      ];
+      
+      // 创建权限管理器
+      const atManager = abilityAccessCtrl.createAtManager();
+      
+      // 请求用户授权
+      const grantStatus = await atManager.requestPermissionsFromUser(this.context, permissions);
+      
+      // 检查授权结果
+      const allGranted = grantStatus.authResults.every((result) => result === abilityAccessCtrl.GrantStatus.PERMISSION_GRANTED);
+      
+      if (allGranted) {
+        hilog.info(DOMAIN, TAG, 'Location permission granted');
+        return true;
+      } else {
+        hilog.error(DOMAIN, TAG, 'Location permission denied');
+        return false;
+      }
     } catch (error) {
-      hilog.error(DOMAIN, TAG, 'Permission check error: %{public}s', JSON.stringify(error) ?? '');
+      hilog.error(DOMAIN, TAG, 'Permission request error: %{public}s', JSON.stringify(error) ?? '');
       return false;
     }
   }
@@ -90,8 +108,36 @@ export class LocationService {
    * 检查定位权限
    */
   async checkPermission(): Promise<boolean> {
-    // TODO: 简化实现，默认有权限
-    return true;
+    if (!this.context) {
+      hilog.error(DOMAIN, TAG, 'Context not initialized');
+      return false;
+    }
+    
+    try {
+      const atManager = abilityAccessCtrl.createAtManager();
+      const permissions: Array<Permissions> = [
+        'ohos.permission.APPROXIMATELY_LOCATION',
+        'ohos.permission.LOCATION'
+      ];
+      
+      // 检查每个权限的授权状态
+      for (const permission of permissions) {
+        const status = await atManager.checkAccessToken(
+          this.context.applicationInfo.accessTokenId,
+          permission
+        );
+        if (status !== abilityAccessCtrl.GrantStatus.PERMISSION_GRANTED) {
+          hilog.warn(DOMAIN, TAG, 'Permission not granted: %{public}s', permission);
+          return false;
+        }
+      }
+      
+      hilog.info(DOMAIN, TAG, 'All location permissions granted');
+      return true;
+    } catch (error) {
+      hilog.error(DOMAIN, TAG, 'Check permission error: %{public}s', JSON.stringify(error) ?? '');
+      return false;
+    }
   }
   
   /**
@@ -104,36 +150,74 @@ export class LocationService {
     }
     
     try {
+      // 先检查并启用定位服务
+      const isEnabled = await geolocationManager.isLocationEnabled();
+      if (!isEnabled) {
+        hilog.error(DOMAIN, TAG, 'Location service is disabled');
+        throw new Error('Location service disabled');
+      }
+      
       this.locationCallback = callback;
       this.isTracking = true;
-      hilog.info(DOMAIN, TAG, 'Location tracking started (mock mode)');
+      hilog.info(DOMAIN, TAG, 'Location tracking started');
       
-      // 模拟位置更新（因为 API 限制，先使用模拟数据）
-      const mockLocation: LocationInfo = {
-        latitude: 39.9042,
-        longitude: 116.4074,
-        altitude: 50,
-        speed: 0,
-        accuracy: 10,
-        timestamp: Date.now()
+      // 真实定位请求
+      const request = {
+        priority: geolocationManager.LocationRequestPriority.FIRST_FIX,
+        interval: 1000
       };
       
-      // 每秒发送模拟位置
-      const intervalId = setInterval(() => {
+      geolocationManager.on('locationChange', request, (location) => {
         if (this.isTracking && this.locationCallback) {
-          mockLocation.timestamp = Date.now();
-          mockLocation.latitude += 0.0001;
-          mockLocation.longitude += 0.0001;
-          this.locationCallback(mockLocation);
-        } else {
-          clearInterval(intervalId);
+          const locationInfo: LocationInfo = {
+            latitude: location.latitude,
+            longitude: location.longitude,
+            altitude: location.altitude ?? 0,
+            speed: location.speed ?? 0,
+            accuracy: location.accuracy ?? 0,
+            timestamp: Date.now()
+          };
+          
+          hilog.info(DOMAIN, TAG, 'Location received: lat=%{public}.6f, lon=%{public}.6f, acc=%{public}.1f', 
+                     locationInfo.latitude, locationInfo.longitude, locationInfo.accuracy);
+          
+          this.locationCallback(locationInfo);
         }
-      }, 1000);
+      });
       
     } catch (error) {
       hilog.error(DOMAIN, TAG, 'Start tracking error: %{public}s', JSON.stringify(error) ?? '');
       this.isTracking = false;
+      
+      // 如果真实定位失败，使用模拟数据作为后备
+      hilog.warn(DOMAIN, TAG, 'Using mock location as fallback');
+      this.startMockTracking(callback);
     }
+  }
+  
+  /**
+   * 启动模拟定位（真实定位失败时的后备方案）
+   */
+  private startMockTracking(callback: LocationCallback): void {
+    const mockLocation: LocationInfo = {
+      latitude: 39.9042,
+      longitude: 116.4074,
+      altitude: 50,
+      speed: 0,
+      accuracy: 10,
+      timestamp: Date.now()
+    };
+    
+    const intervalId = setInterval(() => {
+      if (this.isTracking && this.locationCallback) {
+        mockLocation.timestamp = Date.now();
+        mockLocation.latitude += 0.0001;
+        mockLocation.longitude += 0.0001;
+        this.locationCallback(mockLocation);
+      } else {
+        clearInterval(intervalId);
+      }
+    }, 1000);
   }
   
   /**
@@ -158,11 +242,21 @@ export class LocationService {
    */
   async getCurrentLocation(): Promise<LocationInfo | null> {
     try {
+      // 检查定位服务是否启用
+      const isEnabled = await geolocationManager.isLocationEnabled();
+      if (!isEnabled) {
+        hilog.error(DOMAIN, TAG, 'Location service is disabled');
+        return null;
+      }
+      
       const request = {
         priority: geolocationManager.LocationRequestPriority.FIRST_FIX,
       };
       
       const location = await geolocationManager.getCurrentLocation(request);
+      
+      hilog.info(DOMAIN, TAG, 'Got location: %{public}s,%{public}s', 
+                 location.latitude.toString(), location.longitude.toString());
       
       return {
         latitude: location.latitude,

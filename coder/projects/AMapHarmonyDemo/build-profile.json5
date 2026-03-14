@@ -1,0 +1,90 @@
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "/Users/chenjie/.ohos/config/default_AMapHarmonyDemo_gMlWgoM1PXoEqr60BKsThWX1zbPDfQQdn_uxTFjkYuQ=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001BC1BBC4F02340461738288925E31E91B8FC2228AB6950C7FF5C7FD9DBF7E96F206FF9454B156815",
+          "profile": "/Users/chenjie/.ohos/config/default_AMapHarmonyDemo_gMlWgoM1PXoEqr60BKsThWX1zbPDfQQdn_uxTFjkYuQ=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/chenjie/.ohos/config/default_AMapHarmonyDemo_gMlWgoM1PXoEqr60BKsThWX1zbPDfQQdn_uxTFjkYuQ=.p12",
+          "storePassword": "0000001BF52869EC74045564D2482FB86A37811886F7486FC0879CA7F5F6FD67D39A9D9EAFB3C10F402B5E"
+        }
+      }
+    ],
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "compatibleSdkVersion": "5.0.0(12)",
+        "runtimeOS": "HarmonyOS",
+        "buildOption": {
+          "strictMode": {
+            "useNormalizedOHMUrl": true
+          }
+        }
+      }
+    ],
+    "buildModeSet": [
+      {
+        "name": "debug",
+      },
+      {
+        "name": "release"
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "harmony_location_demo",
+      "srcPath": "./harmony_location_demo",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "harmony_map_demo",
+      "srcPath": "./harmony_map_demo",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "harmony_navi_demo",
+      "srcPath": "./harmony_navi_demo",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}

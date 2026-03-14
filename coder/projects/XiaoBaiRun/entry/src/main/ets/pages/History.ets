@@ -81,6 +81,22 @@ export struct History {
   }
   
   /**
+   * 格式化配速
+   */
+  formatPace(pace: number): string {
+    const minutes = Math.floor(pace / 60);
+    const seconds = Math.floor(pace % 60);
+    return `${minutes}'${seconds.toString().padStart(2, '0')}"`;
+  }
+  
+  /**
+   * 格式化轨迹点数量
+   */
+  formatTrackPoints(count: number): string {
+    return `${count} 个点`;
+  }
+  
+  /**
    * 删除记录
    */
   async deleteRecord(index: number) {
@@ -130,7 +146,12 @@ export struct History {
                     .fontSize(DesignTokens.FONT_SIZE.sm)
                     .fontColor(this.getColors().textSecondary)
                   
-                  Text(`配速：${Math.floor(record.pace / 60)}'${Math.floor(record.pace % 60).toString().padStart(2, '0')}"`)
+                  Text(`配速：${this.formatPace(record.pace)}`)
+                    .fontSize(DesignTokens.FONT_SIZE.sm)
+                    .fontColor(this.getColors().textSecondary)
+                    .margin({ left: DesignTokens.SPACING.lg })
+                  
+                  Text(`轨迹：${this.formatTrackPoints(record.trackPoints.length)}`)
                     .fontSize(DesignTokens.FONT_SIZE.sm)
                     .fontColor(this.getColors().textSecondary)
                     .margin({ left: DesignTokens.SPACING.lg })

@@ -1,0 +1,34 @@
+{
+  "routerMap": [
+    {
+      "name": "LocationPage",
+      "pageSourceFile": "src/main/ets/pages/LocationPage.ets",
+      "buildFunction": "LocationPageBuilder"
+    },
+    {
+      "name": "GeoFenceMainPage",
+      "pageSourceFile": "src/main/ets/pages/GeoFenceMainPage.ets",
+      "buildFunction": "GeoFenceMainPageBuilder"
+    },
+    {
+      "name": "GeoFencePage",
+      "pageSourceFile": "src/main/ets/pages/GeoFencePage.ets",
+      "buildFunction": "GeoFencePageBuilder"
+    },
+    {
+      "name": "CalculateDistancePage",
+      "pageSourceFile": "src/main/ets/pages/CalculateDistancePage.ets",
+      "buildFunction": "CalculateDistancePageBuilder"
+    },
+    {
+      "name": "CoordConverPage",
+      "pageSourceFile": "src/main/ets/pages/CoordConverPage.ets",
+      "buildFunction": "CoordConverPageBuilder"
+    },
+    {
+      "name": "DataAvailablePage",
+      "pageSourceFile": "src/main/ets/pages/DataAvailablePage.ets",
+      "buildFunction": "DataAvailablePageBuilder"
+    }
+  ]
+}

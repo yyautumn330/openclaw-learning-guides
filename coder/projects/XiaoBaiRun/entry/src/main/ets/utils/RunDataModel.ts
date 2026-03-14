@@ -170,8 +170,26 @@ export class RunDataModel {
    * 添加轨迹点
    */
   addTrackPoint(point: TrackPoint): void {
-    if (!this.currentRun || !this.isRunning) return;
+    if (!this.currentRun || !this.isRunning || this.isPaused) {
+      if (this.isPaused) {
+        hilog.info(DOMAIN, TAG, 'Skipping track point - run is paused');
+      }
+      return;
+    }
+    
+    // 过滤过于密集的轨迹点（距离小于 3 米或时间小于 3 秒）
+    const lastPoint = this.currentRun.trackPoints[this.currentRun.trackPoints.length - 1];
+    if (lastPoint) {
+      const timeDiff = point.timestamp - lastPoint.timestamp;
+      if (timeDiff < 3000) { // 3 秒
+        return;
+      }
+    }
+    
     this.currentRun.trackPoints.push(point);
+    hilog.info(DOMAIN, TAG, 'Track point added: %{public}s, total: %{public}d', 
+               `${point.latitude.toFixed(6)},${point.longitude.toFixed(6)}`, 
+               this.currentRun.trackPoints.length);
   }
   
   /**
