@@ -151,9 +151,9 @@ export struct Statistics {
                 .textAlign(TextAlign.Start)
                 .margin({ bottom: DesignTokens.SPACING.md })
               
-              ForEach(this.getRecentRuns(), (run: RunSummary) => {
+              ForEach(this.getRecentRuns(), (run: RunSummary, index: number) => {
                 this.RunListItem(run)
-              })
+              }, (run: RunSummary, index: number): string => index.toString())
             }
             .width('100%')
             .padding(DesignTokens.SPACING.lg)
