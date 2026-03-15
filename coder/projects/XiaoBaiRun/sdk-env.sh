@@ -13,7 +13,7 @@ export JAVA_HOME="/Applications/DevEco-Studio.app/Contents/jbr/Contents/Home"
 export PATH="$NODE_HOME/bin:$JAVA_HOME/bin:$PATH"
 
 # 可选：设置 npm 镜像
-export npm_config_@ohos:registry="https://repo.harmonyos.com/npm/"
+export npm_config_registry="https://repo.harmonyos.com/npm/"
 
 echo "✅ SDK 环境已加载:"
 echo "  DEVECO_SDK_HOME=$DEVECO_SDK_HOME"
