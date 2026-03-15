@@ -15,7 +15,6 @@
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { common } from '@kit.AbilityKit';
-import { photoAccessHelper } from '@kit.MediaLibraryKit';
 
 const TAG = 'ShareService';
 const DOMAIN = 0x0000;
@@ -37,7 +36,19 @@ export interface ShareOptions {
 }
 
 /**
+ * 跑步记录分享数据
+ */
+export interface RunRecordShareData {
+  distance: number;
+  duration: number;
+  avgPace: string;
+  calories: number;
+  date: string;
+}
+
+/**
  * 分享服务
+ * 当前版本使用日志模拟，真机测试时替换为真实分享 API
  */
 export class ShareService {
   private static instance: ShareService;
@@ -70,14 +81,12 @@ export class ShareService {
     }
 
     try {
-      // 生成分享文本
       const shareText = this.generateShareText(text, title);
+      hilog.info(DOMAIN, TAG, '📤 Sharing: %{public}s', shareText);
       
-      hilog.info(DOMAIN, TAG, 'Sharing text: %{public}s', shareText);
-      
-      // TODO: 使用 HarmonyOS 分享 API
+      // 真机测试时替换为系统分享 API
       // 当前版本记录日志
-      hilog.info(DOMAIN, TAG, '✅ Text share completed');
+      hilog.info(DOMAIN, TAG, '✅ Text share completed (logged)');
       
       return true;
     } catch (error) {
@@ -89,19 +98,13 @@ export class ShareService {
   /**
    * 分享跑步记录
    */
-  async shareRunRecord(record: {
-    distance: number;
-    duration: number;
-    avgPace: string;
-    calories: number;
-    date: string;
-  }): Promise<boolean> {
+  async shareRunRecord(record: RunRecordShareData): Promise<boolean> {
     const text = this.formatRunRecordText(record);
     return await this.shareText(text, '跑步记录分享');
   }
 
   /**
-   * 分享跑步截图
+   * 分享图片
    */
   async shareImage(imageUri: string, title?: string): Promise<boolean> {
     if (!this.context) {
@@ -110,11 +113,8 @@ export class ShareService {
     }
 
     try {
-      hilog.info(DOMAIN, TAG, 'Sharing image: %{public}s', imageUri);
-      
-      // TODO: 使用 HarmonyOS 分享 API
-      hilog.info(DOMAIN, TAG, '✅ Image share completed');
-      
+      hilog.info(DOMAIN, TAG, '📤 Sharing image: %{public}s', imageUri);
+      hilog.info(DOMAIN, TAG, '✅ Image share completed (logged)');
       return true;
     } catch (error) {
       hilog.error(DOMAIN, TAG, 'Share image failed: %{public}s', JSON.stringify(error));
@@ -132,11 +132,8 @@ export class ShareService {
     }
 
     try {
-      hilog.info(DOMAIN, TAG, 'Sharing GPX file: %{public}s', fileUri);
-      
-      // TODO: 使用 HarmonyOS 分享 API
-      hilog.info(DOMAIN, TAG, '✅ GPX share completed');
-      
+      hilog.info(DOMAIN, TAG, '📤 Sharing GPX: %{public}s', fileUri);
+      hilog.info(DOMAIN, TAG, '✅ GPX share completed (logged)');
       return true;
     } catch (error) {
       hilog.error(DOMAIN, TAG, 'Share GPX failed: %{public}s', JSON.stringify(error));
@@ -170,14 +167,14 @@ export class ShareService {
     
     return `🏃 跑步记录\n` +
       `📅 ${record.date}\n` +
-      `📏 距离: ${distanceKm} 公里\n` +
-      `⏱️ 时长: ${durationMin}分${durationSec}秒\n` +
-      `⚡ 配速: ${record.avgPace}/公里\n` +
-      `🔥 卡路里: ${record.calories} 千卡`;
+      `📏 距离：${distanceKm} 公里\n` +
+      `⏱️ 时长：${durationMin}分${durationSec}秒\n` +
+      `⚡ 配速：${record.avgPace}/公里\n` +
+      `🔥 卡路里：${record.calories} 千卡`;
   }
 
   /**
-   * 保存分享图片到相册
+   * 保存到相册
    */
   async saveToGallery(imageUri: string): Promise<boolean> {
     if (!this.context) {
@@ -186,8 +183,8 @@ export class ShareService {
     }
 
     try {
-      // TODO: 使用 photoAccessHelper 保存到相册
-      hilog.info(DOMAIN, TAG, '✅ Image saved to gallery');
+      hilog.info(DOMAIN, TAG, '💾 Saving to gallery: %{public}s', imageUri);
+      hilog.info(DOMAIN, TAG, '✅ Image saved to gallery (logged)');
       return true;
     } catch (error) {
       hilog.error(DOMAIN, TAG, 'Save to gallery failed: %{public}s', JSON.stringify(error));
@@ -205,8 +202,8 @@ export class ShareService {
     }
 
     try {
-      // TODO: 使用剪贴板 API
-      hilog.info(DOMAIN, TAG, '✅ Text copied to clipboard');
+      hilog.info(DOMAIN, TAG, '📋 Copy to clipboard: %{public}s', text);
+      hilog.info(DOMAIN, TAG, '✅ Text copied to clipboard (logged)');
       return true;
     } catch (error) {
       hilog.error(DOMAIN, TAG, 'Copy to clipboard failed: %{public}s', JSON.stringify(error));

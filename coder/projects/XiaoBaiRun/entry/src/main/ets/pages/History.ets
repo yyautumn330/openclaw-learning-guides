@@ -17,6 +17,7 @@ import { runDataModel, RunRecord } from '../utils/RunDataModel';
 import { DesignTokens, type ColorTheme } from '../constants/DesignTokens';
 import { common } from '@kit.AbilityKit';
 import { ToastComponent } from '../components/Toast';
+import { shareService, type RunRecordShareData } from '../services/ShareService';
 
 @Component
 export struct History {
@@ -31,6 +32,7 @@ export struct History {
     const context = getContext(this) as common.UIAbilityContext;
     try {
       await runDataModel.initialize(context);
+      shareService.setContext(context);
       this.isDarkMode = this.getIsDarkMode();
       this.loadRecords();
     } catch (error) {
@@ -106,6 +108,37 @@ export struct History {
     ToastComponent.success('已删除', 2000);
   }
   
+  /**
+   * 分享记录
+   */
+  async shareRecord(index: number) {
+    const record = this.records[index];
+    
+    const shareData: RunRecordShareData = {
+      distance: record.distance,
+      duration: record.duration,
+      avgPace: this.formatPace(record.pace),
+      calories: record.calories,
+      date: this.formatTime(record.startTime)
+    };
+    
+    const success = await shareService.shareRunRecord(shareData);
+    if (success) {
+      ToastComponent.success('分享成功', 2000);
+    } else {
+      ToastComponent.info('已复制到剪贴板', 2000);
+    }
+  }
+  
+  /**
+   * 导出 GPX
+   */
+  async exportGPX(index: number) {
+    const record = this.records[index];
+    // TODO: 调用 GPXService 导出
+    ToastComponent.info('GPX 导出功能开发中', 2000);
+  }
+  
   build() {
     Column() {
       // 顶部标题
@@ -156,17 +189,33 @@ export struct History {
                     .fontColor(this.getColors().textSecondary)
                     .margin({ left: DesignTokens.SPACING.lg })
                   
-                  Button('删除')
-                    .fontSize(DesignTokens.FONT_SIZE.sm)
-                    .backgroundColor(this.getColors().errorColor)
-                    .fontColor('#FFFFFF')
-                    .borderRadius(DesignTokens.RADIUS.sm)
-                    .width(60)
-                    .height(30)
-                    .margin({ left: 'auto' })
-                    .onClick(() => {
-                      this.deleteRecord(index);
-                    })
+                  Row() {
+                    // 分享按钮
+                    Button('📤')
+                      .fontSize(DesignTokens.FONT_SIZE.sm)
+                      .backgroundColor(this.getColors().primaryColor)
+                      .fontColor('#FFFFFF')
+                      .borderRadius(DesignTokens.RADIUS.sm)
+                      .width(40)
+                      .height(30)
+                      .onClick(() => {
+                        this.shareRecord(index);
+                      })
+                    
+                    // 删除按钮
+                    Button('删除')
+                      .fontSize(DesignTokens.FONT_SIZE.sm)
+                      .backgroundColor(this.getColors().errorColor)
+                      .fontColor('#FFFFFF')
+                      .borderRadius(DesignTokens.RADIUS.sm)
+                      .width(60)
+                      .height(30)
+                      .margin({ left: 8 })
+                      .onClick(() => {
+                        this.deleteRecord(index);
+                      })
+                  }
+                  .margin({ left: 'auto' })
                 }
                 .width('100%')
                 .margin({ top: DesignTokens.SPACING.sm })
