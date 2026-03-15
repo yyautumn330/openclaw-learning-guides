@@ -15,30 +15,36 @@
 
 import { DesignTokens, type ColorTheme } from '../constants/DesignTokens';
 import { ToastComponent } from '../components/Toast';
+import { settingsService } from '../services/SettingsService';
+import { common } from '@kit.AbilityKit';
 
 @Component
 export struct Profile {
   @State isDarkMode: boolean = false;
   @State darkModeEnabled: boolean = false;
+  private context: common.UIAbilityContext | null = null;
   
   getColors(): ColorTheme {
     return DesignTokens.getThemeColors(this.isDarkMode);
   }
   
-  aboutToAppear() {
+  async aboutToAppear() {
+    this.context = getContext(this) as common.UIAbilityContext;
+    
+    // 初始化设置服务
+    await settingsService.setContext(this.context);
+    
     // 加载深色模式设置
-    this.isDarkMode = this.getIsDarkMode();
-    this.darkModeEnabled = this.isDarkMode;
+    this.darkModeEnabled = settingsService.getDarkMode();
+    this.isDarkMode = this.darkModeEnabled;
   }
   
-  getIsDarkMode(): boolean {
-    // TODO: 从设置读取
-    return false;
-  }
-  
-  toggleDarkMode() {
+  async toggleDarkMode() {
     this.darkModeEnabled = !this.darkModeEnabled;
     this.isDarkMode = this.darkModeEnabled;
+    
+    // 保存设置
+    await settingsService.setDarkMode(this.darkModeEnabled);
     
     ToastComponent.info(
       this.darkModeEnabled ? '已开启深色模式' : '已关闭深色模式',
