@@ -13,9 +13,20 @@
  * limitations under the License.
  */
 
-import { runDataModel } from '../utils/RunDataModel';
+import { runDataModel, type RunRecord } from '../utils/RunDataModel';
 import { DesignTokens, type ColorTheme } from '../constants/DesignTokens';
 import { common } from '@kit.AbilityKit';
+import { StatsChart } from '../components/StatsChart';
+
+/**
+ * 跑步记录简要信息
+ */
+interface RunSummary {
+  startTime: number;
+  distance: number;
+  duration: number;
+  calories: number;
+}
 
 @Component
 export struct Statistics {
@@ -116,27 +127,126 @@ export struct Statistics {
       .borderRadius(DesignTokens.RADIUS.lg)
       .margin({ bottom: DesignTokens.SPACING.lg })
       
-      // 提示信息
-      Column() {
-        Text('📊')
-          .fontSize(DesignTokens.FONT_SIZE.icon)
-          .margin({ bottom: DesignTokens.SPACING.md })
-        
-        Text('开始跑步后')
-          .fontSize(DesignTokens.FONT_SIZE.md)
-          .fontColor(this.getColors().textSecondary)
-        
-        Text('这里会显示详细统计')
-          .fontSize(DesignTokens.FONT_SIZE.sm)
-          .fontColor(this.getColors().textTertiary)
-          .margin({ top: DesignTokens.SPACING.sm })
+      // 统计图表
+      Scroll() {
+        Column() {
+          // 图表组件
+          StatsChart({
+            isDarkMode: this.isDarkMode
+          })
+          .width('100%')
+          .padding(DesignTokens.SPACING.lg)
+          .backgroundColor(this.getColors().cardBackground)
+          .borderRadius(DesignTokens.RADIUS.lg)
+          .margin({ bottom: DesignTokens.SPACING.lg })
+          
+          // 详细数据列表
+          if (this.totalRuns > 0) {
+            Column() {
+              Text('最近跑步记录')
+                .fontSize(DesignTokens.FONT_SIZE.lg)
+                .fontWeight(FontWeight.Bold)
+                .fontColor(this.getColors().textPrimary)
+                .width('100%')
+                .textAlign(TextAlign.Start)
+                .margin({ bottom: DesignTokens.SPACING.md })
+              
+              ForEach(this.getRecentRuns(), (run: RunSummary) => {
+                this.RunListItem(run)
+              })
+            }
+            .width('100%')
+            .padding(DesignTokens.SPACING.lg)
+            .backgroundColor(this.getColors().cardBackground)
+            .borderRadius(DesignTokens.RADIUS.lg)
+          }
+        }
       }
       .width('100%')
       .layoutWeight(1)
-      .justifyContent(FlexAlign.Center)
     }
     .width('100%')
     .height('100%')
     .backgroundColor(this.getColors().backgroundColor)
+  }
+  
+  /**
+   * 获取最近跑步记录
+   */
+  getRecentRuns(): RunSummary[] {
+    const records = runDataModel.getRunRecords();
+    const result: RunSummary[] = [];
+    for (let i = 0; i < Math.min(5, records.length); i++) {
+      result.push({
+        startTime: records[i].startTime,
+        distance: records[i].distance,
+        duration: records[i].duration,
+        calories: records[i].calories
+      });
+    }
+    return result;
+  }
+  
+  @Builder
+  RunListItem(run: RunSummary) {
+    Row() {
+      Column() {
+        Text(this.formatDate(run.startTime))
+          .fontSize(DesignTokens.FONT_SIZE.md)
+          .fontColor(this.getColors().textPrimary)
+          .fontWeight(FontWeight.Medium)
+        
+        Text(this.formatTime(run.startTime))
+          .fontSize(DesignTokens.FONT_SIZE.sm)
+          .fontColor(this.getColors().textSecondary)
+      }
+      .layoutWeight(1)
+      .alignItems(HorizontalAlign.Start)
+      
+      Column() {
+        Text(`${(run.distance / 1000).toFixed(2)} km`)
+          .fontSize(DesignTokens.FONT_SIZE.md)
+          .fontColor(this.getColors().primaryColor)
+          .fontWeight(FontWeight.Bold)
+        
+        Text(this.formatDuration(run.duration))
+          .fontSize(DesignTokens.FONT_SIZE.sm)
+          .fontColor(this.getColors().textSecondary)
+      }
+      .layoutWeight(1)
+      .alignItems(HorizontalAlign.Center)
+      
+      Column() {
+        Text(`${Math.round(run.calories)} cal`)
+          .fontSize(DesignTokens.FONT_SIZE.md)
+          .fontColor(this.getColors().secondaryColor)
+          .fontWeight(FontWeight.Medium)
+      }
+      .layoutWeight(1)
+      .alignItems(HorizontalAlign.End)
+    }
+    .width('100%')
+    .padding({ top: DesignTokens.SPACING.md, bottom: DesignTokens.SPACING.md })
+    .border({ width: 1, color: this.getColors().borderColor })
+  }
+  
+  /**
+   * 格式化日期
+   */
+  formatDate(timestamp: number): string {
+    const date = new Date(timestamp);
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    return `${month}/${day}`;
+  }
+  
+  /**
+   * 格式化时间
+   */
+  formatTime(timestamp: number): string {
+    const date = new Date(timestamp);
+    const hour = date.getHours().toString().padStart(2, '0');
+    const minute = date.getMinutes().toString().padStart(2, '0');
+    return `${hour}:${minute}`;
   }
 }
