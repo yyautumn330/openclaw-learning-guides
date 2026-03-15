@@ -17,6 +17,7 @@ import { runDataModel, TrackPoint } from '../utils/RunDataModel';
 import { locationService, LocationInfo } from '../services/LocationService';
 import { metronomeService } from '../services/MetronomeService';
 import { backgroundService } from '../services/BackgroundService';
+import { voiceService } from '../services/VoiceService';
 import { DesignTokens } from '../constants/DesignTokens';
 import { common } from '@kit.AbilityKit';
 import { ToastComponent } from '../components/Toast';
@@ -54,6 +55,7 @@ struct Index {
         locationService.setContext(this.context);
         metronomeService.setContext(this.context);
         backgroundService.setContext(this.context);
+        voiceService.setContext(this.context);
         this.isDarkMode = this.getIsDarkMode();
         
         // 请求定位权限（系统会自动弹窗）
@@ -90,6 +92,9 @@ struct Index {
     // 启动后台任务
     await backgroundService.startBackgroundRunning();
     
+    // 语音播报开始
+    await voiceService.announceStart();
+    
     // 开始计时
     this.startTimer();
     
@@ -105,13 +110,16 @@ struct Index {
   /**
    * 暂停跑步
    */
-  pauseRun() {
+  async pauseRun() {
     if (!this.isRunning) return;
     
     this.isPaused = true;
     this.stopTimer();
-    this.locationText = '已暂停';
     
+    // 语音播报暂停
+    await voiceService.announcePause(this.distance, this.duration);
+    
+    this.locationText = '已暂停';
     ToastComponent.info('已暂停', 2000);
   }
   
@@ -123,8 +131,11 @@ struct Index {
     
     this.isPaused = false;
     this.startTimer();
-    this.locationText = '跑步中...';
     
+    // 语音播报继续
+    await voiceService.announceResume();
+    
+    this.locationText = '跑步中...';
     ToastComponent.success('继续跑步', 2000);
   }
   
@@ -140,6 +151,10 @@ struct Index {
     
     await locationService.stopTracking();
     await backgroundService.stopBackgroundRunning();
+    
+    // 语音播报结束
+    await voiceService.announceStop(this.distance, this.duration);
+    
     await runDataModel.finishRun();
     
     this.locationText = '准备开始';
@@ -149,7 +164,7 @@ struct Index {
   /**
    * 位置更新回调
    */
-  onLocationUpdate(location: LocationInfo) {
+  async onLocationUpdate(location: LocationInfo) {
     console.info('Location update:', JSON.stringify(location));
     
     if (this.lastLocation) {
@@ -169,6 +184,9 @@ struct Index {
       
       this.distance += dist;
       this.pace = this.calculatePace(this.duration, this.distance);
+      
+      // 语音播报里程碑（每公里）
+      voiceService.announceMilestone(this.distance / 1000);
     }
     
     this.lastLocation = location;

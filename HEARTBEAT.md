@@ -546,9 +546,21 @@ source sdk-env.sh && hvigorw assembleHap
 - ✅ 自动完成 P0→P1→P2 任务
 - ✅ 编译验证 + 功能自测
 
+**后台运行功能** (22:07-22:17)：
+- ✅ 创建 `BackgroundService.ts` - 后台任务管理
+- ✅ 集成到首页 `Index.ets`
+- ✅ 添加后台权限 `ohos.permission.KEEP_BACKGROUND_RUNNING`
+- ✅ BUILD SUCCESSFUL in 3.3s
+
+**P0 任务进展**：
+- ✅ 定位权限优化 - 权限请求流程完善
+- ✅ 后台运行功能 - BackgroundService 集成
+- ⏳ 真机测试 - 待用户验证
+- ⏳ 语音播报 - 待开发
+
 ---
 
-*最后更新*: 2026-03-15 21:58  
+*最后更新*: 2026-03-15 22:17  
 *心跳频率*: 30 分钟  
 *日期*: 周日  
-*项目状态*: 🏃 小白快跑 - 定时任务已创建，自动推进开发
+*项目状态*: 🏃 小白快跑 - 后台运行功能完成，P0 进度 2/4
