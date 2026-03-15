@@ -40,28 +40,17 @@
           ],
           "when": "always"
         }
+      },
+      {
+        "name": "ohos.permission.KEEP_BACKGROUND_RUNNING",
+        "reason": "$string:background_reason",
+        "usedScene": {
+          "abilities": [
+            "EntryAbility"
+          ],
+          "when": "inuse"
+        }
       }
-      // 暂时不使用后台运行和通知权限（简化版本）
-      // {
-      //   "name": "ohos.permission.KEEP_BACKGROUND_RUNNING",
-      //   "reason": "$string:background_reason",
-      //   "usedScene": {
-      //     "abilities": [
-      //       "EntryAbility"
-      //     ],
-      //     "when": "inuse"
-      //   }
-      // },
-      // {
-      //   "name": "ohos.permission.NOTIFICATION_CONTROLLER",
-      //   "reason": "$string:notification_reason",
-      //   "usedScene": {
-      //     "abilities": [
-      //       "EntryAbility"
-      //     ],
-      //     "when": "inuse"
-      //   }
-      // }
     ],
     "abilities": [
       {

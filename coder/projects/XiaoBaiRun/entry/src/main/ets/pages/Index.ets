@@ -16,6 +16,7 @@
 import { runDataModel, TrackPoint } from '../utils/RunDataModel';
 import { locationService, LocationInfo } from '../services/LocationService';
 import { metronomeService } from '../services/MetronomeService';
+import { backgroundService } from '../services/BackgroundService';
 import { DesignTokens } from '../constants/DesignTokens';
 import { common } from '@kit.AbilityKit';
 import { ToastComponent } from '../components/Toast';
@@ -52,6 +53,7 @@ struct Index {
         await runDataModel.initialize(this.context);
         locationService.setContext(this.context);
         metronomeService.setContext(this.context);
+        backgroundService.setContext(this.context);
         this.isDarkMode = this.getIsDarkMode();
         
         // 请求定位权限（系统会自动弹窗）
@@ -84,6 +86,9 @@ struct Index {
     this.distance = 0;
     
     runDataModel.startRun();
+    
+    // 启动后台任务
+    await backgroundService.startBackgroundRunning();
     
     // 开始计时
     this.startTimer();
@@ -134,6 +139,7 @@ struct Index {
     this.stopTimer();
     
     await locationService.stopTracking();
+    await backgroundService.stopBackgroundRunning();
     await runDataModel.finishRun();
     
     this.locationText = '准备开始';
