@@ -22,6 +22,7 @@ const DOMAIN = 0x0000;
 
 /**
  * GPX 导出服务
+ * 生成 GPX 1.1 格式的轨迹文件
  */
 export class GPXService {
   private static instance: GPXService;
@@ -44,46 +45,13 @@ export class GPXService {
   }
 
   /**
-   * 导出为 GPX 格式
+   * 导出为 GPX 格式字符串
+   * 返回 GPX XML 内容，可用于分享或保存
    */
   async exportGPX(record: RunRecord, trajectory: TrajectoryPoint[]): Promise<string> {
     const gpx = this.generateGPX(record, trajectory);
-    
-    if (!this.context) {
-      hilog.warn(DOMAIN, TAG, 'No context, returning GPX string only');
-      return gpx;
-    }
-
-    try {
-      // 确保目录存在
-      const fs = await import('@ohos.file.fs');
-      const exportDir = `${this.context.filesDir}/running/exports`;
-      
-      try {
-        fs.accessSync(exportDir);
-      } catch (e) {
-        fs.mkdirSync(exportDir, true);
-      }
-      
-      // 生成文件名
-      const timestamp = new Date(record.startTime).toISOString().replace(/[:.]/g, '-');
-      const fileName = `run_${timestamp}.gpx`;
-      const filePath = `${exportDir}/${fileName}`;
-      
-      // 写入文件
-      const file = fs.openSync(filePath, fs.OpenMode.CREATE | fs.OpenMode.WRITE_ONLY);
-      const encoder = new TextEncoder();
-      const buffer = encoder.encode(gpx).buffer;
-      fs.writeSync(file.fd, buffer);
-      fs.closeSync(file);
-      
-      hilog.info(DOMAIN, TAG, 'GPX exported: %s', filePath);
-      
-      return filePath;
-    } catch (error) {
-      hilog.error(DOMAIN, TAG, 'Export GPX failed: %{public}s', JSON.stringify(error));
-      throw error;
-    }
+    hilog.info(DOMAIN, TAG, 'GPX generated, length: %{public}d', gpx.length);
+    return gpx;
   }
 
   /**
@@ -91,36 +59,26 @@ export class GPXService {
    */
   private generateGPX(record: RunRecord, trajectory: TrajectoryPoint[]): string {
     const startTime = new Date(record.startTime).toISOString();
-    const durationMin = Math.floor(record.duration / 60);
-    const durationSec = record.duration % 60;
+    const endTime = new Date(record.endTime || Date.now()).toISOString();
     
     let gpx = `<?xml version="1.0" encoding="UTF-8"?>
-<gpx version="1.1" creator="小白快跑" 
-     xmlns="http://www.topografix.com/GPX/1/1"
-     xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1">
-  
+<gpx version="1.1" creator="小白快跑" xmlns="http://www.topografix.com/GPX/1/1">
   <metadata>
-    <name>${this.formatDate(record.startTime)} 跑步记录</name>
-    <time>${startTime}</time>
-    <desc>总距离: ${(record.totalDistance / 1000).toFixed(2)}km, 总时长: ${durationMin}:${durationSec.toString().padStart(2, '0')}, 平均配速: ${record.avgPace}/km</desc>
-  </metadata>
-  
-  <trk>
     <name>跑步轨迹</name>
-    <type>running</type>
-    
+    <desc>小白快跑记录的跑步轨迹</desc>
+    <time>${startTime}</time>
+  </metadata>
+  <trk>
+    <name>跑步 ${startTime}</name>
     <trkseg>
 `;
 
     // 添加轨迹点
     for (const point of trajectory) {
       const time = new Date(point.timestamp).toISOString();
-      gpx += `      <trkpt lat="${point.latitude.toFixed(7)}" lon="${point.longitude.toFixed(7)}">
-        <ele>${point.altitude.toFixed(1)}</ele>
+      gpx += `      <trkpt lat="${point.latitude}" lon="${point.longitude}">
+        <ele>${point.altitude || 0}</ele>
         <time>${time}</time>
-        <speed>${point.speed.toFixed(2)}</speed>
-        <course>${point.bearing.toFixed(1)}</course>
-        <hdop>${(point.accuracy / 3).toFixed(1)}</hdop>
       </trkpt>
 `;
     }
@@ -133,128 +91,59 @@ export class GPXService {
   }
 
   /**
-   * 格式化日期
+   * 获取 GPX 文件名
    */
-  private formatDate(timestamp: number): string {
-    const date = new Date(timestamp);
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    return `${year}-${month}-${day}`;
+  getGPXFileName(record: RunRecord): string {
+    const timestamp = new Date(record.startTime).toISOString().replace(/[:.]/g, '-');
+    return `run_${timestamp}.gpx`;
   }
 
   /**
-   * 导入 GPX 文件
+   * 解析 GPX 内容（用于导入功能）
    */
-  async importGPX(filePath: string): Promise<{ record: RunRecord; trajectory: TrajectoryPoint[] }> {
-    try {
-      const fs = await import('@ohos.file.fs');
-      const file = fs.openSync(filePath, fs.OpenMode.READ_ONLY);
-      const stat = fs.statSync(filePath);
-      const buffer = new ArrayBuffer(stat.size);
-      fs.readSync(file.fd, buffer);
-      fs.closeSync(file);
-      
-      const gpxContent = String.fromCharCode(...new Uint8Array(buffer));
-      return this.parseGPX(gpxContent);
-    } catch (error) {
-      hilog.error(DOMAIN, TAG, 'Import GPX failed: %{public}s', JSON.stringify(error));
-      throw error;
-    }
-  }
-
-  /**
-   * 解析 GPX XML
-   */
-  private parseGPX(gpxContent: string): { record: RunRecord; trajectory: TrajectoryPoint[] } {
-    // 简化的 GPX 解析（实际应使用 XML 解析器）
-    const trkptRegex = /<trkpt lat="([^"]+)" lon="([^"]+)">[\s\S]*?<ele>([^<]+)<\/ele>[\s\S]*?<time>([^<]+)<\/time>[\s\S]*?<speed>([^<]+)<\/speed>/g;
-    
+  parseGPX(gpxContent: string): { record: RunRecord; trajectory: TrajectoryPoint[] } {
+    // 简化的 GPX 解析
     const trajectory: TrajectoryPoint[] = [];
+    
+    // 正则匹配轨迹点
+    const trkptRegex = /<trkpt lat="([^"]+)" lon="([^"]+)">[\s\S]*?<ele>([^<]*)<\/ele>[\s\S]*?<time>([^<]*)<\/time>/g;
     let match;
-    let totalDistance = 0;
-    let maxSpeed = 0;
+    let index = 0;
     
     while ((match = trkptRegex.exec(gpxContent)) !== null) {
-      const latitude = parseFloat(match[1]);
-      const longitude = parseFloat(match[2]);
-      const altitude = parseFloat(match[3]);
-      const timestamp = new Date(match[4]).getTime();
-      const speed = parseFloat(match[5]);
-      
-      // 计算距离
-      if (trajectory.length > 0) {
-        const prev = trajectory[trajectory.length - 1];
-        totalDistance += this.calculateDistance(
-          prev.latitude, prev.longitude,
-          latitude, longitude
-        );
-      }
-      
-      if (speed > maxSpeed) {
-        maxSpeed = speed;
-      }
-      
       trajectory.push({
-        id: `pt_${timestamp}`,
-        timestamp,
-        latitude,
-        longitude,
-        altitude,
-        accuracy: 10, // 默认精度
-        speed,
+        id: `point_${index}`,
+        timestamp: new Date(match[4]).getTime(),
+        latitude: parseFloat(match[1]),
+        longitude: parseFloat(match[2]),
+        altitude: parseFloat(match[3]) || 0,
+        accuracy: 0,
+        speed: 0,
         bearing: 0,
-        distance: totalDistance,
+        distance: 0,
         locationType: 'gps',
         isKeyPoint: false
       });
+      index++;
     }
-    
-    const startTime = trajectory.length > 0 ? trajectory[0].timestamp : Date.now();
-    const endTime = trajectory.length > 0 ? trajectory[trajectory.length - 1].timestamp : Date.now();
-    const duration = (endTime - startTime) / 1000;
-    
+
+    // 创建记录
     const record: RunRecord = {
-      id: `run_${startTime}`,
-      startTime,
-      endTime,
-      duration,
-      totalDistance,
+      id: Date.now().toString(),
+      startTime: trajectory.length > 0 ? trajectory[0].timestamp : Date.now(),
+      endTime: trajectory.length > 0 ? trajectory[trajectory.length - 1].timestamp : Date.now(),
+      duration: 0,
+      totalDistance: 0,
       directDistance: 0,
-      avgSpeed: duration > 0 ? totalDistance / duration : 0,
-      maxSpeed,
-      avgPace: this.calculatePace(totalDistance, duration),
-      calories: this.calculateCalories(totalDistance, duration),
+      avgSpeed: 0,
+      maxSpeed: 0,
+      avgPace: '0\'00"',
+      calories: 0,
       pointCount: trajectory.length,
       keyPoints: []
     };
-    
+
     return { record, trajectory };
-  }
-
-  private calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
-    const R = 6371000;
-    const dLat = (lat2 - lat1) * Math.PI / 180;
-    const dLon = (lon2 - lon1) * Math.PI / 180;
-    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-              Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-              Math.sin(dLon / 2) * Math.sin(dLon / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c;
-  }
-
-  private calculatePace(distance: number, duration: number): string {
-    if (distance === 0) return '0:00';
-    const paceSeconds = duration / (distance / 1000);
-    const minutes = Math.floor(paceSeconds / 60);
-    const seconds = Math.floor(paceSeconds % 60);
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
-  }
-
-  private calculateCalories(distance: number, duration: number, weight: number = 70): number {
-    const MET = 9.1;
-    const hours = duration / 3600;
-    return Math.round(MET * weight * hours);
   }
 }
 

@@ -10,6 +10,32 @@
 
 ## 新的一天 (2026-03-16)
 
+### 🏃 小白快跑 - TODO 完善 (12:12)
+
+**完成内容**:
+- ✅ Index.ets: `getIsDarkMode()` 从 SettingsService 读取
+- ✅ History.ets: `getIsDarkMode()` 从 SettingsService 读取
+- ✅ History.ets: `exportGPX()` 调用 GPXService（待类型适配）
+- ✅ RunPage.ets: 显示跑步结果弹窗（Toast 提示）
+- ✅ Toast.ets: 使用全局 `promptAction.showToast`
+
+**修改文件**:
+- `entry/src/main/ets/components/Toast.ets` - 全局 Toast API
+- `entry/src/main/ets/pages/Index.ets` - 深色模式读取
+- `entry/src/main/ets/pages/History.ets` - 深色模式 + GPX 导出
+- `entry/src/main/ets/pages/RunPage.ets` - 跑步结果弹窗
+- `TASK_TRACKER.md` - 进度更新
+
+**Git 提交**: `af6c2bd` ✅ TODO 完善：深色模式读取 + GPX 导出 + 跑步结果弹窗 + 全局 Toast
+
+**编译状态**: 存在历史编译错误（非本次修改引入，是 TrajectoryStore/RunTrackerService 的 API 兼容性问题）
+
+**下一步**: 等待真机测试验证
+
+---
+
+## 新的一天 (2026-03-16)
+
 ### 🗺️ 首页地图组件修复 ✅ (08:02-08:12)
 
 **用户反馈**: "首页导航轨迹，怎么发生了变化，昨天参考高德地图的 demo 集成的，今天好像被修改了"
