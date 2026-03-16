@@ -18,6 +18,7 @@ import { locationService, LocationInfo } from '../services/LocationService';
 import { metronomeService } from '../services/MetronomeService';
 import { backgroundService } from '../services/BackgroundService';
 import { voiceService } from '../services/VoiceService';
+import { settingsService } from '../services/SettingsService';
 import { DesignTokens } from '../constants/DesignTokens';
 import { common } from '@kit.AbilityKit';
 import { ToastComponent } from '../components/Toast';
@@ -56,7 +57,8 @@ struct Index {
         metronomeService.setContext(this.context);
         backgroundService.setContext(this.context);
         voiceService.setContext(this.context);
-        this.isDarkMode = this.getIsDarkMode();
+        await settingsService.setContext(this.context);
+        this.isDarkMode = settingsService.getDarkMode();
         
         // 请求定位权限（系统会自动弹窗）
         await locationService.requestPermission();
@@ -72,8 +74,7 @@ struct Index {
   }
   
   getIsDarkMode(): boolean {
-    // TODO: 从设置读取
-    return false;
+    return settingsService.getDarkMode();
   }
   
   /**

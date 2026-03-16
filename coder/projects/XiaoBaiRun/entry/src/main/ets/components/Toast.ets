@@ -13,6 +13,8 @@
  * limitations under the License.
  */
 
+import { promptAction } from '@kit.ArkUI';
+
 /**
  * Toast 组件
  */
@@ -44,13 +46,34 @@ export struct ToastComponent {
     }, duration);
   }
   
-  static success(message: string, duration?: number): void {
-    // TODO: 使用全局 Toast
-    console.log('Toast:', message);
+  /**
+   * 显示成功 Toast
+   */
+  static success(message: string, duration: number = 2000): void {
+    promptAction.showToast({
+      message: `✅ ${message}`,
+      duration: duration / 1000
+    });
   }
   
-  static info(message: string, duration?: number): void {
-    console.log('Toast:', message);
+  /**
+   * 显示信息 Toast
+   */
+  static info(message: string, duration: number = 2000): void {
+    promptAction.showToast({
+      message: `ℹ️ ${message}`,
+      duration: duration / 1000
+    });
+  }
+  
+  /**
+   * 显示错误 Toast
+   */
+  static error(message: string, duration: number = 2000): void {
+    promptAction.showToast({
+      message: `❌ ${message}`,
+      duration: duration / 1000
+    });
   }
   
   build() {

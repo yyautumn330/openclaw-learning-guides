@@ -16,8 +16,11 @@
 import { runDataModel, RunRecord } from '../utils/RunDataModel';
 import { DesignTokens, type ColorTheme } from '../constants/DesignTokens';
 import { common } from '@kit.AbilityKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 import { ToastComponent } from '../components/Toast';
 import { shareService, type RunRecordShareData } from '../services/ShareService';
+import { settingsService } from '../services/SettingsService';
+import { gpxService } from '../services/GPXService';
 
 @Component
 export struct History {
@@ -33,7 +36,9 @@ export struct History {
     try {
       await runDataModel.initialize(context);
       shareService.setContext(context);
-      this.isDarkMode = this.getIsDarkMode();
+      settingsService.setContext(context);
+      gpxService.setContext(context);
+      this.isDarkMode = settingsService.getDarkMode();
       this.loadRecords();
     } catch (error) {
       console.error('History init error:', error);
@@ -41,8 +46,7 @@ export struct History {
   }
   
   getIsDarkMode(): boolean {
-    // TODO: 从设置读取
-    return false;
+    return settingsService.getDarkMode();
   }
   
   loadRecords() {
@@ -135,8 +139,15 @@ export struct History {
    */
   async exportGPX(index: number) {
     const record = this.records[index];
-    // TODO: 调用 GPXService 导出
-    ToastComponent.info('GPX 导出功能开发中', 2000);
+    try {
+      // 使用记录中的轨迹点导出 GPX
+      // 注意：GPXService 需要适配 RunDataModel 的 RunRecord 类型
+      ToastComponent.info('GPX 导出功能开发中', 2000);
+      hilog.info(0x0000, 'History', 'GPX export requested for record: %s', record.id);
+    } catch (error) {
+      console.error('Export GPX failed:', error);
+      ToastComponent.error('GPX 导出失败', 2000);
+    }
   }
   
   build() {

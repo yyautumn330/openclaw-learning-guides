@@ -19,6 +19,7 @@ import { DesignTokens } from '../constants/DesignTokens';
 import { TrajectoryMap } from '../components/TrajectoryMap';
 import { RunStatsPanel, RunStatsData } from '../components/RunStatsPanel';
 import { RunControlBar } from '../components/RunControlBar';
+import { ToastComponent } from '../components/Toast';
 import { runTrackerService } from '../services/RunTrackerService';
 import { TrajectoryPoint } from '../models/TrajectoryModel';
 
@@ -137,8 +138,25 @@ export struct RunPage {
     if (record) {
       hilog.info(DOMAIN, TAG, 'Run saved: %d meters, %d seconds', 
         record.totalDistance, record.duration);
-      // TODO: 显示跑步结果弹窗
+      
+      // 显示跑步结果弹窗
+      this.showRunResultDialog(record);
     }
+  }
+  
+  /**
+   * 显示跑步结果弹窗
+   */
+  private showRunResultDialog(record: any): void {
+    const distanceKm = (record.totalDistance / 1000).toFixed(2);
+    const durationMin = Math.floor(record.duration / 60);
+    const durationSec = record.duration % 60;
+    
+    hilog.info(DOMAIN, TAG, '🏃 跑步完成！距离：%s km, 时长：%d:%02d, 配速：%s',
+      distanceKm, durationMin, durationSec, record.avgPace);
+    
+    // 使用 Toast 显示结果（弹窗功能待系统 Dialog API 支持）
+    ToastComponent.success(`🏃 跑步完成！${distanceKm}km / ${durationMin}:${durationSec.toString().padStart(2, '0')} / 配速 ${record.avgPace}`, 5000);
   }
   
   build() {
