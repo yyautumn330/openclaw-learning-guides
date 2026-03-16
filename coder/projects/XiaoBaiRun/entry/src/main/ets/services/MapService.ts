@@ -109,20 +109,13 @@ export class MapService {
   /**
    * 生成 OpenStreetMap 静态地图 URL (免费，无需 API Key)
    * 使用 StaticMap 服务：https://staticmap.openstreetmap.de/
-   * @param latitude 纬度
-   * @param longitude 经度
-   * @param zoom 缩放级别 (3-18)
-   * @param width 图片宽度
-   * @param height 图片高度
-   * @param markers 标记点数组
    */
   getStaticMapUrl(
     latitude: number,
     longitude: number,
     zoom: number = 15,
-    width: number = 600,
-    height: number = 350,
-    markers?: Array<{ lat: number; lng: number; label?: string }>
+    width: number = 640,
+    height: number = 400
   ): string {
     // OpenStreetMap StaticMap (免费，无需 API Key)
     let url = `https://staticmap.openstreetmap.de/staticmap.php?`;
@@ -130,14 +123,6 @@ export class MapService {
     url += `&zoom=${zoom}`;
     url += `&size=${width}x${height}`;
     url += `&maptype=mapnik`;
-    
-    // 添加标记点 (使用 marker 参数)
-    if (markers && markers.length > 0) {
-      const markersParam = markers.map((m) => {
-        return `${m.lat},${m.lng}`;
-      }).join('|');
-      url += `&markers=${markersParam}`;
-    }
     
     // 添加时间戳避免缓存
     url += `&t=${Date.now()}`;

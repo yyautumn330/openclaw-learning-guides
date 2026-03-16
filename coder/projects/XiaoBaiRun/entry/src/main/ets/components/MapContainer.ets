@@ -14,16 +14,15 @@
  */
 
 import { DesignTokens } from '../constants/DesignTokens';
-import { mapService } from '../services/MapService';
-import { common } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import { mapService } from '../services/MapService';
 
 const TAG = 'MapContainer';
 const DOMAIN = 0x0000;
 
 /**
  * 地图容器组件
- * 使用高德静态地图 API (免费，支持轨迹绘制)
+ * 使用 OpenStreetMap 静态地图 (免费，无需 API Key)
  */
 @Component
 export struct MapContainer {
@@ -33,13 +32,10 @@ export struct MapContainer {
   @State latitude: number = 39.90923;
   @State mapImageUrl: string = '';
   @State isLoading: boolean = true;
-  @State locationText: string = '定位中...';
-  
-  private context: common.UIAbilityContext | null = null;
+  @State locationText: string = '加载地图中...';
   
   aboutToAppear() {
     hilog.info(DOMAIN, TAG, 'MapContainer aboutToAppear');
-    this.context = getContext(this) as common.UIAbilityContext;
     this.initMap();
   }
   
@@ -48,27 +44,26 @@ export struct MapContainer {
    */
   async initMap(): Promise<void> {
     try {
-      hilog.info(DOMAIN, TAG, 'Initializing map service');
+      hilog.info(DOMAIN, TAG, 'Initializing map');
       
       // 初始化地图服务
-      await mapService.initialize(this.context);
+      await mapService.initialize();
       
       // 获取当前位置
       const position = await mapService.getCurrentPosition();
       if (position) {
         this.longitude = position.longitude;
         this.latitude = position.latitude;
-        this.locationText = '已定位';
-      } else {
-        this.locationText = '定位失败，使用默认位置';
       }
       
-      // 更新地图图片 URL
+      // 更新地图 URL
       this.updateMapUrl();
       
       this.isLoading = false;
-      hilog.info(DOMAIN, TAG, 'Map initialized at %{public}s,%{public}s', 
-                 this.latitude.toString(), this.longitude.toString());
+      this.locationText = '地图已加载';
+      
+      hilog.info(DOMAIN, TAG, 'Map initialized at %{public}f,%{public}f', 
+                 this.latitude, this.longitude);
       
     } catch (error) {
       hilog.error(DOMAIN, TAG, 'Map init error: %{public}s', JSON.stringify(error) ?? '');
@@ -78,35 +73,18 @@ export struct MapContainer {
   }
   
   /**
-   * 更新地图图片 URL (使用高德静态地图 API)
+   * 更新地图图片 URL
    */
   updateMapUrl(): void {
-    // 添加当前位置标记
-    interface MarkerPoint {
-      lat: number;
-      lng: number;
-      label?: string;
-    }
-    
-    const markers: Array<MarkerPoint> = [{
-      lat: this.latitude,
-      lng: this.longitude,
-      label: 'A' // 起点标记
-    }];
-    
     this.mapImageUrl = mapService.getStaticMapUrl(
       this.latitude,
       this.longitude,
       this.zoom,
       640,
-      400,
-      markers
+      400
     );
     
-    // 添加时间戳避免缓存
-    this.mapImageUrl += `&t=${Date.now()}`;
-    
-    hilog.info(DOMAIN, TAG, 'Map URL updated, zoom: %{public}d', this.zoom);
+    hilog.info(DOMAIN, TAG, 'Map URL updated');
   }
   
   /**
@@ -115,13 +93,11 @@ export struct MapContainer {
   zoomIn(): void {
     this.zoom = Math.min(this.zoom + 1, 18);
     this.updateMapUrl();
-    hilog.info(DOMAIN, TAG, 'Zoom in: %{public}d', this.zoom);
   }
   
   zoomOut(): void {
     this.zoom = Math.max(this.zoom - 1, 3);
     this.updateMapUrl();
-    hilog.info(DOMAIN, TAG, 'Zoom out: %{public}d', this.zoom);
   }
   
   /**
@@ -129,125 +105,92 @@ export struct MapContainer {
    */
   async locateToCurrentPosition(): Promise<void> {
     try {
-      hilog.info(DOMAIN, TAG, 'Locating to current position');
       this.locationText = '定位中...';
-      
       const position = await mapService.getCurrentPosition();
       if (position) {
         this.longitude = position.longitude;
         this.latitude = position.latitude;
         this.updateMapUrl();
-        this.locationText = '已定位到当前位置';
-        hilog.info(DOMAIN, TAG, 'Located to: %{public}s,%{public}s', 
-                   this.latitude.toString(), this.longitude.toString());
-      } else {
-        this.locationText = '定位失败';
+        this.locationText = '已定位';
       }
     } catch (error) {
-      hilog.error(DOMAIN, TAG, 'Locate error: %{public}s', JSON.stringify(error) ?? '');
-      this.locationText = '定位出错';
+      this.locationText = '定位失败';
     }
   }
   
   build() {
     Column() {
-      // 地图图片
-      Stack({ alignContent: Alignment.Center }) {
+      Stack() {
         // 地图图片
         Image(this.mapImageUrl)
           .width('100%')
-          .height(250)
+          .height('100%')
           .objectFit(ImageFit.Cover)
-          .borderRadius(DesignTokens.RADIUS.lg)
           .onComplete(() => {
-            hilog.info(DOMAIN, TAG, 'Map image loaded successfully');
+            hilog.info(DOMAIN, TAG, 'Map image loaded');
             this.isLoading = false;
           })
           .onError((error) => {
-            hilog.error(DOMAIN, TAG, 'Map image load error: %{public}s', 
-                        JSON.stringify(error) ?? '');
+            hilog.error(DOMAIN, TAG, 'Map image error: %{public}s', JSON.stringify(error) ?? '');
             this.isLoading = false;
           })
         
-        // 加载中提示
+        // 加载中
         if (this.isLoading) {
           Column() {
-            Text('🌍')
+            Text('🗺️')
               .fontSize(40)
               .margin({ bottom: 8 })
-            Text('加载地图中...')
+            Text(this.locationText)
               .fontSize(14)
-              .fontColor(DesignTokens.getThemeColors(this.isDarkMode).textSecondary)
+              .fontColor('#FFFFFF')
           }
           .justifyContent(FlexAlign.Center)
+          .width('100%')
+          .height('100%')
+          .backgroundColor('rgba(0,0,0,0.5)')
         }
         
-        // 定位按钮（悬浮在地图右上角）
+        // 定位按钮
         Button('📍')
           .width(44)
           .height(44)
           .fontSize(20)
-          .backgroundColor(DesignTokens.getThemeColors(this.isDarkMode).cardBackground)
-          .fontColor(DesignTokens.getThemeColors(this.isDarkMode).textPrimary)
+          .backgroundColor('rgba(255,255,255,0.9)')
           .borderRadius(22)
-          .borderWidth(1)
-          .borderColor(DesignTokens.getThemeColors(this.isDarkMode).borderColor)
-          .position({ x: '85%', y: 10 })
+          .position({ x: '90%', y: 20 })
           .onClick(() => {
             this.locateToCurrentPosition();
           })
       }
       .width('100%')
-      .height(250)
-      .backgroundColor(DesignTokens.getThemeColors(this.isDarkMode).cardBackground)
-      .borderRadius(DesignTokens.RADIUS.lg)
-      .border({
-        width: 1,
-        color: DesignTokens.getThemeColors(this.isDarkMode).borderColor
-      })
+      .height('100%')
       
-      // 控制按钮
+      // 缩放控制
       Row() {
-        Text(this.locationText)
-          .fontSize(DesignTokens.FONT_SIZE.sm)
-          .fontColor(DesignTokens.getThemeColors(this.isDarkMode).textSecondary)
-          .layoutWeight(1)
-        
         Button('➖')
-          .fontSize(DesignTokens.FONT_SIZE.md)
-          .backgroundColor(DesignTokens.getThemeColors(this.isDarkMode).cardBackground)
-          .fontColor(DesignTokens.getThemeColors(this.isDarkMode).textPrimary)
-          .borderWidth(1)
-          .borderColor(DesignTokens.getThemeColors(this.isDarkMode).borderColor)
-          .borderRadius(DesignTokens.RADIUS.md)
           .width(40)
           .height(36)
-          .margin({ left: DesignTokens.SPACING.sm })
-          .onClick(() => {
-            this.zoomOut();
-          })
+          .fontSize(18)
+          .backgroundColor(this.isDarkMode ? '#333' : '#fff')
+          .onClick(() => this.zoomOut())
         
         Text(`Z${this.zoom}`)
-          .fontSize(DesignTokens.FONT_SIZE.md)
-          .fontColor(DesignTokens.getThemeColors(this.isDarkMode).textPrimary)
-          .margin({ left: DesignTokens.SPACING.sm, right: DesignTokens.SPACING.sm })
+          .fontSize(14)
+          .fontColor(this.isDarkMode ? '#fff' : '#333')
+          .margin({ left: 8, right: 8 })
         
         Button('➕')
-          .fontSize(DesignTokens.FONT_SIZE.md)
-          .backgroundColor(DesignTokens.getThemeColors(this.isDarkMode).cardBackground)
-          .fontColor(DesignTokens.getThemeColors(this.isDarkMode).textPrimary)
-          .borderWidth(1)
-          .borderColor(DesignTokens.getThemeColors(this.isDarkMode).borderColor)
-          .borderRadius(DesignTokens.RADIUS.md)
           .width(40)
           .height(36)
-          .onClick(() => {
-            this.zoomIn();
-          })
+          .fontSize(18)
+          .backgroundColor(this.isDarkMode ? '#333' : '#fff')
+          .onClick(() => this.zoomIn())
       }
-      .width('100%')
-      .padding({ top: DesignTokens.SPACING.md })
+      .justifyContent(FlexAlign.Center)
+      .padding({ top: 8 })
     }
     .width('100%')
+    .height('100%')
   }
 }
