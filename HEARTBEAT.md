@@ -10,6 +10,31 @@
 
 ## 新的一天 (2026-03-16)
 
+### 🗺️ 首页地图组件修复 ✅ (08:02-08:12)
+
+**用户反馈**: "首页导航轨迹，怎么发生了变化，昨天参考高德地图的 demo 集成的，今天好像被修改了"
+
+**问题根因**:
+- `MapContainer.ets` 使用的是 Yandex 静态地图 API（俄罗斯服务）
+- 应该使用高德地图 API
+
+**修复方案**:
+- ✅ 使用高德静态地图 API（免费，无需 SDK）
+- ✅ 支持缩放控制（3-18 级）
+- ✅ 支持定位到当前位置
+- ✅ 支持标记点显示
+- ✅ 支持轨迹线绘制
+
+**修改文件**:
+- `entry/src/main/ets/components/MapContainer.ets`
+- `entry/src/main/ets/services/MapService.ts`
+
+**编译验证**: BUILD SUCCESSFUL in 2 s 872 ms ✅
+
+**下一步**: 真机测试验证地图显示
+
+---
+
 ### 🏃 小白快跑 - 全部开发完成 ✅ (07:42)
 
 **定时任务检查**: cron:fd267ffb-bdae-4b51-9dd7-f9e9326697cf
@@ -22,8 +47,8 @@
 
 **编译验证**:
 ```
-HAP 包已生成：51MB (03-15 23:50)
-位置：entry/build/default/outputs/default/entry-default-unsigned.hap
+BUILD SUCCESSFUL in 2 s 872 ms
+HAP 包位置：entry/build/default/outputs/default/entry-default-unsigned.hap
 ```
 
 **Git 状态**:
