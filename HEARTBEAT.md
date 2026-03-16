@@ -143,6 +143,43 @@ HAP 包：51MB (12:21 生成)
 
 ## 新的一天 (2026-03-16)
 
+### ⚠️ 地图集成问题说明 (23:30)
+
+**用户要求**: "参考 amapharmonydemo 工程，使用高德 sdk 和 key 集成地图功能"
+
+**尝试方案**:
+
+| 方案 | 结果 | 原因 |
+|------|------|------|
+| 高德静态地图 API | ❌ 失败 | API Key 平台不匹配 |
+| 高德 SDK MapViewComponent | ❌ 失败 | 需要 Navigation 页面结构 |
+| OpenStreetMap 静态 | ❌ 失败 | 网络无法访问 |
+
+**根本问题**:
+1. **API Key**: 当前 Key 绑定的平台与 Web 服务不匹配
+2. **SDK 集成**: MapViewComponent 需要特定的页面容器（NavDestination）
+3. **网络**: 国外地图服务在中国大陆访问不稳定
+
+**建议解决方案**:
+
+**方案 A** (推荐): 申请正确的高德静态地图 API Key
+- 平台：Web 服务 (IP 白名单)
+- 替换文件：`entry/src/main/ets/services/MapService.ts`
+
+**方案 B**: 在 DevEco Studio 中直接运行真机测试
+- 使用真机 GPS 和网络
+- 无需静态地图 API
+
+**方案 C**: 重构页面使用高德 SDK
+- 需要改为 Navigation 结构
+- 参考 AMapHarmonyDemo 项目
+
+**文档**: `MAP_INTEGRATION_GUIDE.md` 已创建
+
+**下一步**: 等待用户选择方案并协助完成配置
+
+---
+
 ### 🗺️ 地图修复 - OpenStreetMap 方案 ✅ (22:38)
 
 **用户反馈**: "地图还是没有显示，参考 AMapHarmonyDemo 工程，修复地图不显示问题"
