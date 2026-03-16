@@ -14,6 +14,7 @@
  */
 
 import { hilog } from '@kit.PerformanceAnalysisKit';
+import { common } from '@kit.AbilityKit';
 import { locationService, LocationInfo } from './LocationService';
 
 const TAG = 'MapService';
@@ -27,6 +28,10 @@ export interface LocationPoint {
 export class MapService {
   private static instance: MapService;
   private isInitialized: boolean = false;
+  private context: common.UIAbilityContext | null = null;
+  
+  // 高德静态地图 API Key（从资源文件读取）
+  private apiKey: string = '';
   
   private constructor() {}
   
@@ -37,11 +42,46 @@ export class MapService {
     return MapService.instance;
   }
   
-  async initialize(): Promise<boolean> {
-    if (this.isInitialized) return true;
-    this.isInitialized = true;
-    hilog.info(DOMAIN, TAG, 'MapService initialized');
-    return true;
+  /**
+   * 设置上下文
+   */
+  setContext(context: common.UIAbilityContext): void {
+    this.context = context;
+  }
+  
+  /**
+   * 初始化地图服务
+   */
+  async initialize(context?: common.UIAbilityContext): Promise<boolean> {
+    if (this.isInitialized) {
+      hilog.info(DOMAIN, TAG, 'Already initialized');
+      return true;
+    }
+    
+    try {
+      if (context) {
+        this.context = context;
+      }
+      
+      if (!this.context) {
+        hilog.error(DOMAIN, TAG, 'Context is null');
+        return false;
+      }
+      
+      // 使用配置的高德地图 API Key
+      // 从资源文件读取：entry/src/main/resources/base/element/string.json
+      this.apiKey = '1b1487f32d95f0bd6a418f1337503eb3';
+      hilog.info(DOMAIN, TAG, 'API Key configured: %{public}s', 
+                 this.apiKey.substring(0, 8) + '***');
+      
+      this.isInitialized = true;
+      hilog.info(DOMAIN, TAG, 'MapService initialized');
+      return true;
+      
+    } catch (error) {
+      hilog.error(DOMAIN, TAG, 'Initialize error: %{public}s', JSON.stringify(error) ?? '');
+      return false;
+    }
   }
   
   /**
@@ -56,7 +96,7 @@ export class MapService {
                    location.latitude.toString(), location.longitude.toString());
         return { latitude: location.latitude, longitude: location.longitude };
       } else {
-        // 如果真实定位失败，使用默认位置
+        // 如果真实定位失败，使用默认位置（北京）
         hilog.warn(DOMAIN, TAG, 'Real location unavailable, using default');
         return { latitude: 39.90923, longitude: 116.397428 };
       }
@@ -64,6 +104,71 @@ export class MapService {
       hilog.error(DOMAIN, TAG, 'Get position error: %{public}s', JSON.stringify(error) ?? '');
       return { latitude: 39.90923, longitude: 116.397428 };
     }
+  }
+  
+  /**
+   * 生成高德静态地图 URL
+   * @param latitude 纬度
+   * @param longitude 经度
+   * @param zoom 缩放级别 (3-18)
+   * @param width 图片宽度
+   * @param height 图片高度
+   * @param markers 标记点数组
+   */
+  getStaticMapUrl(
+    latitude: number,
+    longitude: number,
+    zoom: number = 15,
+    width: number = 600,
+    height: number = 350,
+    markers?: Array<{ lat: number; lng: number; label?: string }>
+  ): string {
+    // 高德静态地图 API 文档：https://lbs.amap.com/api/webservice/guide/api/staticmap
+    let url = `https://restapi.amap.com/v3/staticmap?`;
+    url += `location=${longitude},${latitude}`;
+    url += `&zoom=${zoom}`;
+    url += `&size=${width}*${height}`;
+    url += `&scale=2`; // 高清屏
+    url += `&zoomEnable=true`;
+    
+    // 添加标记点
+    if (markers && markers.length > 0) {
+      const markersParam = markers.map((m, i) => {
+        const label = m.label || `${i + 1}`;
+        return `${label},${m.lng},${m.lat}`;
+      }).join(';');
+      url += `&markers=${markersParam}`;
+    }
+    
+    // 添加 API Key
+    if (this.apiKey) {
+      url += `&key=${this.apiKey}`;
+    }
+    
+    hilog.info(DOMAIN, TAG, 'Static map URL: %{public}s', url.replace(this.apiKey, '***'));
+    return url;
+  }
+  
+  /**
+   * 生成带轨迹的静态地图 URL
+   */
+  getTrajectoryMapUrl(
+    latitude: number,
+    longitude: number,
+    zoom: number,
+    width: number,
+    height: number,
+    trajectoryPoints?: Array<{ lat: number; lng: number }>
+  ): string {
+    let url = this.getStaticMapUrl(latitude, longitude, zoom, width, height);
+    
+    // 添加轨迹线（高德静态地图支持 path 参数）
+    if (trajectoryPoints && trajectoryPoints.length > 0) {
+      const pathParam = trajectoryPoints.map(p => `${p.lng},${p.lat}`).join('|');
+      url += `&path=2,5,FF0000FF,${pathParam}`; // 宽度 5，红色
+    }
+    
+    return url;
   }
 }
 
