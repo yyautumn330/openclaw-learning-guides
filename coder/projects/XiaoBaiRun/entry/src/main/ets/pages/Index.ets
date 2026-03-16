@@ -272,229 +272,169 @@ struct Index {
   }
   
   /**
-   * 构建首页内容（Tab 1）- 高端大气布局
+   * 构建首页内容（Tab 1）- 沉浸式地图布局
    */
   @Builder
   buildHomeTab() {
-    Scroll() {
+    Stack({ alignContent: Alignment.Bottom }) {
+      // 底层：全屏地图（沉浸式）
       Column() {
-        // 顶部渐变区域 + 标题
-        Column() {
-          // 标题和副标题
-          Column() {
-            Row() {
-              Text('🏃')
-                .fontSize(32)
-                .margin({ right: 8 })
-              Text('小白快跑')
-                .fontSize(28)
-                .fontWeight(FontWeight.Bold)
-                .fontColor('#FFFFFF')
-            }
-            .margin({ bottom: 4 })
-            
-            Text('记录你的每一步')
-              .fontSize(14)
-              .fontColor('#FFFFFF99')
-          }
-          .padding({ top: 50, bottom: 20 })
+        MapContainer({ isDarkMode: this.isDarkMode })
           .width('100%')
-          .alignItems(HorizontalAlign.Center)
-          
-          // 地图区域 - 带阴影和圆角
-          Column() {
-            MapContainer({ isDarkMode: this.isDarkMode })
-              .width('100%')
-              .height(280)
-          }
-          .width('92%')
-          .padding(12)
-          .backgroundColor(this.getColors().cardBackground)
-          .borderRadius(20)
-          .shadow({
-            radius: 16,
-            color: 'rgba(0,0,0,0.15)',
-            offsetX: 0,
-            offsetY: 8
-          })
-        }
-        .width('100%')
-        .linearGradient({
-          angle: 135,
-          colors: [
-            [this.getColors().primaryColor, 0.0],
-            [this.getColors().secondaryColor, 1.0]
-          ]
-        })
-        .borderRadius({ bottomLeft: 30, bottomRight: 30 })
+          .height('100%')
+      }
+      .width('100%')
+      .height('100%')
+      
+      // 顶层：半透明数据面板（从底部浮起）
+      Column() {
+        Blank() // 占位，让内容靠下
         
-        // 核心数据卡片 - 三个大数字
+        // 数据卡片区域（悬浮在地图上）
         Row() {
           // 时间
           Column() {
-            Row() {
-              Text('⏱️')
-                .fontSize(20)
-                .margin({ right: 4 })
-              Text(this.formatTime(this.duration))
-                .fontSize(26)
-                .fontWeight(FontWeight.Bold)
-                .fontColor(this.getColors().textPrimary)
-            }
+            Text('⏱️')
+              .fontSize(18)
+              .margin({ bottom: 4 })
+            Text(this.formatTime(this.duration))
+              .fontSize(22)
+              .fontWeight(FontWeight.Bold)
+              .fontColor('#FFFFFF')
             Text('时长')
-              .fontSize(13)
-              .fontColor(this.getColors().textSecondary)
-              .margin({ top: 4 })
+              .fontSize(11)
+              .fontColor('#FFFFFFCC')
           }
           .layoutWeight(1)
-          .padding(16)
-          .backgroundColor(this.getColors().cardBackground)
-          .borderRadius(16)
-          .shadow({
-            radius: 8,
-            color: 'rgba(0,0,0,0.08)',
-            offsetX: 0,
-            offsetY: 4
-          })
+          .padding(12)
           
           // 距离
           Column() {
-            Row() {
-              Text('📍')
-                .fontSize(20)
-                .margin({ right: 4 })
-              Text(`${(this.distance / 1000).toFixed(2)}`)
-                .fontSize(26)
-                .fontWeight(FontWeight.Bold)
-                .fontColor(this.getColors().primaryColor)
-            }
+            Text('📍')
+              .fontSize(18)
+              .margin({ bottom: 4 })
+            Text(`${(this.distance / 1000).toFixed(2)}`)
+              .fontSize(22)
+              .fontWeight(FontWeight.Bold)
+              .fontColor('#FFFFFF')
             Text('公里')
-              .fontSize(13)
-              .fontColor(this.getColors().textSecondary)
-              .margin({ top: 4 })
+              .fontSize(11)
+              .fontColor('#FFFFFFCC')
           }
           .layoutWeight(1)
-          .padding(16)
-          .backgroundColor(this.getColors().cardBackground)
-          .borderRadius(16)
-          .shadow({
-            radius: 8,
-            color: 'rgba(0,0,0,0.08)',
-            offsetX: 0,
-            offsetY: 4
-          })
-          .margin({ left: 12, right: 12 })
+          .padding(12)
           
           // 配速
           Column() {
-            Row() {
-              Text('⚡')
-                .fontSize(20)
-                .margin({ right: 4 })
-              Text(this.pace)
-                .fontSize(26)
-                .fontWeight(FontWeight.Bold)
-                .fontColor(this.getColors().textPrimary)
-            }
+            Text('⚡')
+              .fontSize(18)
+              .margin({ bottom: 4 })
+            Text(this.pace)
+              .fontSize(22)
+              .fontWeight(FontWeight.Bold)
+              .fontColor('#FFFFFF')
             Text('配速')
-              .fontSize(13)
-              .fontColor(this.getColors().textSecondary)
-              .margin({ top: 4 })
+              .fontSize(11)
+              .fontColor('#FFFFFFCC')
           }
           .layoutWeight(1)
-          .padding(16)
-          .backgroundColor(this.getColors().cardBackground)
-          .borderRadius(16)
-          .shadow({
-            radius: 8,
-            color: 'rgba(0,0,0,0.08)',
-            offsetX: 0,
-            offsetY: 4
-          })
+          .padding(12)
         }
         .width('92%')
-        .margin({ top: -20 })
-        
-        // 位置状态
-        if (this.locationText !== '准备开始') {
-          Row() {
-            Text('📡')
-              .fontSize(16)
-              .margin({ right: 6 })
-            Text(this.locationText)
-              .fontSize(13)
-              .fontColor(this.getColors().textSecondary)
-          }
-          .padding({ left: 16, right: 16, top: 8, bottom: 8 })
-          .margin({ top: 16 })
-          .backgroundColor(this.getColors().cardBackground)
-          .borderRadius(20)
-        }
+        .backgroundColor('rgba(0,0,0,0.6)')
+        .borderRadius(16)
+        .shadow({
+          radius: 12,
+          color: 'rgba(0,0,0,0.3)',
+          offsetX: 0,
+          offsetY: 4
+        })
+        .margin({ bottom: 16 })
         
         // 控制按钮区域
-        Column() {
-          Row() {
-            // 开始/暂停/继续按钮 - 大按钮
-            Button(this.getButtonText())
-              .width('65%')
-              .height(60)
-              .fontSize(18)
-              .fontWeight(FontWeight.Medium)
-              .linearGradient({
-                angle: 90,
-                colors: [
-                  [this.getColors().primaryColor, 0.0],
-                  [this.getColors().secondaryColor, 1.0]
-                ]
-              })
+        Row() {
+          // 开始/暂停/继续按钮
+          Button(this.getButtonText())
+            .width('70%')
+            .height(52)
+            .fontSize(17)
+            .fontWeight(FontWeight.Medium)
+            .linearGradient({
+              angle: 90,
+              colors: [
+                [this.getColors().primaryColor, 0.0],
+                [this.getColors().secondaryColor, 1.0]
+              ]
+            })
+            .fontColor('#FFFFFF')
+            .borderRadius(26)
+            .shadow({
+              radius: 10,
+              color: `${this.getColors().primaryColor}66`,
+              offsetX: 0,
+              offsetY: 4
+            })
+            .onClick(() => {
+              if (!this.isRunning) {
+                this.startRun();
+              } else if (this.isPaused) {
+                this.resumeRun();
+              } else {
+                this.pauseRun();
+              }
+            })
+          
+          // 停止按钮（跑步时显示）
+          if (this.isRunning) {
+            Button('⏹')
+              .width(52)
+              .height(52)
+              .fontSize(20)
+              .backgroundColor('rgba(255,255,255,0.2)')
               .fontColor('#FFFFFF')
-              .borderRadius(30)
-              .shadow({
-                radius: 12,
-                color: `${this.getColors().primaryColor}66`,
-                offsetX: 0,
-                offsetY: 6
-              })
+              .borderRadius(26)
+              .borderWidth(1)
+              .borderColor('#FFFFFF40')
+              .margin({ left: 12 })
               .onClick(() => {
-                if (!this.isRunning) {
-                  this.startRun();
-                } else if (this.isPaused) {
-                  this.resumeRun();
-                } else {
-                  this.pauseRun();
-                }
+                this.stopRun();
               })
-            
-            // 停止按钮
-            if (this.isRunning) {
-              Button('停止')
-                .width('25%')
-                .height(60)
-                .fontSize(16)
-                .fontWeight(FontWeight.Medium)
-                .backgroundColor(this.getColors().cardBackground)
-                .fontColor(this.getColors().textSecondary)
-                .borderRadius(30)
-                .borderWidth(2)
-                .borderColor(this.getColors().borderColor)
-                .margin({ left: 12 })
-                .onClick(() => {
-                  this.stopRun();
-                })
-            }
           }
-          .justifyContent(FlexAlign.Center)
-          .width('100%')
-          .padding({ top: 24, bottom: 24 })
         }
+        .justifyContent(FlexAlign.Center)
         .width('92%')
+        .padding({ bottom: 24 })
+        
+        // 位置状态（最底部）
+        if (this.locationText !== '准备开始' && this.locationText !== '') {
+          Row() {
+            Text('📡')
+              .fontSize(14)
+              .margin({ right: 4 })
+            Text(this.locationText)
+              .fontSize(12)
+              .fontColor('#FFFFFF99')
+          }
+          .padding({ left: 12, right: 12, top: 6, bottom: 6 })
+          .backgroundColor('rgba(0,0,0,0.4)')
+          .borderRadius(12)
+          .margin({ bottom: 12 })
+        }
       }
       .width('100%')
+      .height('100%')
+      .linearGradient({
+        angle: 0,
+        colors: [
+          ['transparent', 0.0],
+          ['transparent', 0.3],
+          ['rgba(0,0,0,0.3)', 0.6],
+          ['rgba(0,0,0,0.7)', 1.0]
+        ]
+      })
     }
     .width('100%')
     .height('100%')
-    .backgroundColor(this.getColors().backgroundColor)
-    .scrollBar(BarState.Off)
   }
   
   /**

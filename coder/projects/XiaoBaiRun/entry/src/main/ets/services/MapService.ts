@@ -107,7 +107,8 @@ export class MapService {
   }
   
   /**
-   * 生成高德静态地图 URL
+   * 生成 OpenStreetMap 静态地图 URL (免费，无需 API Key)
+   * 使用 StaticMap 服务：https://staticmap.openstreetmap.de/
    * @param latitude 纬度
    * @param longitude 经度
    * @param zoom 缩放级别 (3-18)
@@ -123,29 +124,25 @@ export class MapService {
     height: number = 350,
     markers?: Array<{ lat: number; lng: number; label?: string }>
   ): string {
-    // 高德静态地图 API 文档：https://lbs.amap.com/api/webservice/guide/api/staticmap
-    let url = `https://restapi.amap.com/v3/staticmap?`;
-    url += `location=${longitude},${latitude}`;
+    // OpenStreetMap StaticMap (免费，无需 API Key)
+    let url = `https://staticmap.openstreetmap.de/staticmap.php?`;
+    url += `center=${latitude},${longitude}`;
     url += `&zoom=${zoom}`;
-    url += `&size=${width}*${height}`;
-    url += `&scale=2`; // 高清屏
-    url += `&zoomEnable=true`;
+    url += `&size=${width}x${height}`;
+    url += `&maptype=mapnik`;
     
-    // 添加标记点
+    // 添加标记点 (使用 marker 参数)
     if (markers && markers.length > 0) {
-      const markersParam = markers.map((m, i) => {
-        const label = m.label || `${i + 1}`;
-        return `${label},${m.lng},${m.lat}`;
-      }).join(';');
+      const markersParam = markers.map((m) => {
+        return `${m.lat},${m.lng}`;
+      }).join('|');
       url += `&markers=${markersParam}`;
     }
     
-    // 添加 API Key
-    if (this.apiKey) {
-      url += `&key=${this.apiKey}`;
-    }
+    // 添加时间戳避免缓存
+    url += `&t=${Date.now()}`;
     
-    hilog.info(DOMAIN, TAG, 'Static map URL: %{public}s', url.replace(this.apiKey, '***'));
+    hilog.info(DOMAIN, TAG, 'OSM Static map URL: %{public}s', url);
     return url;
   }
   
