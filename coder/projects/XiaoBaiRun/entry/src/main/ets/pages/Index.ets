@@ -272,114 +272,229 @@ struct Index {
   }
   
   /**
-   * 构建首页内容（Tab 1）
+   * 构建首页内容（Tab 1）- 高端大气布局
    */
   @Builder
   buildHomeTab() {
-    Column() {
-      // 顶部标题
-      Row() {
-        Text('小白快跑')
-          .fontSize(DesignTokens.FONT_SIZE.xxl)
-          .fontWeight(FontWeight.Bold)
-          .fontColor(this.getColors().textPrimary)
-      }
-      .width('100%')
-      .padding({ top: DesignTokens.SPACING.lg, bottom: DesignTokens.SPACING.md })
-      .justifyContent(FlexAlign.Center)
-      
-      // 地图区域
-      MapContainer({ isDarkMode: this.isDarkMode })
-        .width('100%')
-        .height('40%')
-        .margin({ bottom: DesignTokens.SPACING.lg })
-      
-      // 状态显示
-      Row() {
+    Scroll() {
+      Column() {
+        // 顶部渐变区域 + 标题
         Column() {
-          Text(this.formatTime(this.duration))
-            .fontSize(DesignTokens.FONT_SIZE.stat)
-            .fontWeight(FontWeight.Bold)
-            .fontColor(this.getColors().primaryColor)
-          Text('时间')
-            .fontSize(DesignTokens.FONT_SIZE.sm)
-            .fontColor(this.getColors().textSecondary)
-        }
-        .layoutWeight(1)
-        
-        Column() {
-          Text(`${(this.distance / 1000).toFixed(2)}`)
-            .fontSize(DesignTokens.FONT_SIZE.stat)
-            .fontWeight(FontWeight.Bold)
-            .fontColor(this.getColors().primaryColor)
-          Text('公里')
-            .fontSize(DesignTokens.FONT_SIZE.sm)
-            .fontColor(this.getColors().textSecondary)
-        }
-        .layoutWeight(1)
-        
-        Column() {
-          Text(this.pace)
-            .fontSize(DesignTokens.FONT_SIZE.stat)
-            .fontWeight(FontWeight.Bold)
-            .fontColor(this.getColors().primaryColor)
-          Text('配速')
-            .fontSize(DesignTokens.FONT_SIZE.sm)
-            .fontColor(this.getColors().textSecondary)
-        }
-        .layoutWeight(1)
-      }
-      .width('100%')
-      .padding(DesignTokens.SPACING.lg)
-      .backgroundColor(this.getColors().cardBackground)
-      .borderRadius(DesignTokens.RADIUS.lg)
-      .margin({ bottom: DesignTokens.SPACING.lg })
-      
-      // 位置状态
-      Text(this.locationText)
-        .fontSize(DesignTokens.FONT_SIZE.md)
-        .fontColor(this.getColors().textSecondary)
-        .margin({ bottom: DesignTokens.SPACING.lg })
-      
-      // 控制按钮
-      Row() {
-        Button(this.getButtonText())
-          .width(DesignTokens.BUTTON.width)
-          .height(DesignTokens.BUTTON.height)
-          .fontSize(DesignTokens.FONT_SIZE.lg)
-          .fontWeight(FontWeight.Medium)
-          .backgroundColor(this.getColors().primaryColor)
-          .fontColor('#FFFFFF')
-          .borderRadius(DesignTokens.RADIUS.xl)
-          .margin({ right: DesignTokens.SPACING.md })
-          .onClick(() => {
-            if (!this.isRunning) {
-              this.startRun();
-            } else if (this.isPaused) {
-              this.resumeRun();
-            } else {
-              this.pauseRun();
+          // 标题和副标题
+          Column() {
+            Row() {
+              Text('🏃')
+                .fontSize(32)
+                .margin({ right: 8 })
+              Text('小白快跑')
+                .fontSize(28)
+                .fontWeight(FontWeight.Bold)
+                .fontColor('#FFFFFF')
             }
+            .margin({ bottom: 4 })
+            
+            Text('记录你的每一步')
+              .fontSize(14)
+              .fontColor('#FFFFFF99')
+          }
+          .padding({ top: 50, bottom: 20 })
+          .width('100%')
+          .alignItems(HorizontalAlign.Center)
+          
+          // 地图区域 - 带阴影和圆角
+          Column() {
+            MapContainer({ isDarkMode: this.isDarkMode })
+              .width('100%')
+              .height(280)
+          }
+          .width('92%')
+          .padding(12)
+          .backgroundColor(this.getColors().cardBackground)
+          .borderRadius(20)
+          .shadow({
+            radius: 16,
+            color: 'rgba(0,0,0,0.15)',
+            offsetX: 0,
+            offsetY: 8
           })
+        }
+        .width('100%')
+        .linearGradient({
+          angle: 135,
+          colors: [
+            [this.getColors().primaryColor, 0.0],
+            [this.getColors().secondaryColor, 1.0]
+          ]
+        })
+        .borderRadius({ bottomLeft: 30, bottomRight: 30 })
         
-        Button('停止')
-          .width(DesignTokens.BUTTON.smallWidth)
-          .height(DesignTokens.BUTTON.height)
-          .fontSize(DesignTokens.FONT_SIZE.lg)
-          .fontWeight(FontWeight.Medium)
-          .backgroundColor(this.getColors().secondaryColor)
-          .fontColor('#FFFFFF')
-          .borderRadius(DesignTokens.RADIUS.xl)
-          .enabled(this.isRunning)
-          .onClick(() => {
-            this.stopRun();
+        // 核心数据卡片 - 三个大数字
+        Row() {
+          // 时间
+          Column() {
+            Row() {
+              Text('⏱️')
+                .fontSize(20)
+                .margin({ right: 4 })
+              Text(this.formatTime(this.duration))
+                .fontSize(26)
+                .fontWeight(FontWeight.Bold)
+                .fontColor(this.getColors().textPrimary)
+            }
+            Text('时长')
+              .fontSize(13)
+              .fontColor(this.getColors().textSecondary)
+              .margin({ top: 4 })
+          }
+          .layoutWeight(1)
+          .padding(16)
+          .backgroundColor(this.getColors().cardBackground)
+          .borderRadius(16)
+          .shadow({
+            radius: 8,
+            color: 'rgba(0,0,0,0.08)',
+            offsetX: 0,
+            offsetY: 4
           })
+          
+          // 距离
+          Column() {
+            Row() {
+              Text('📍')
+                .fontSize(20)
+                .margin({ right: 4 })
+              Text(`${(this.distance / 1000).toFixed(2)}`)
+                .fontSize(26)
+                .fontWeight(FontWeight.Bold)
+                .fontColor(this.getColors().primaryColor)
+            }
+            Text('公里')
+              .fontSize(13)
+              .fontColor(this.getColors().textSecondary)
+              .margin({ top: 4 })
+          }
+          .layoutWeight(1)
+          .padding(16)
+          .backgroundColor(this.getColors().cardBackground)
+          .borderRadius(16)
+          .shadow({
+            radius: 8,
+            color: 'rgba(0,0,0,0.08)',
+            offsetX: 0,
+            offsetY: 4
+          })
+          .margin({ left: 12, right: 12 })
+          
+          // 配速
+          Column() {
+            Row() {
+              Text('⚡')
+                .fontSize(20)
+                .margin({ right: 4 })
+              Text(this.pace)
+                .fontSize(26)
+                .fontWeight(FontWeight.Bold)
+                .fontColor(this.getColors().textPrimary)
+            }
+            Text('配速')
+              .fontSize(13)
+              .fontColor(this.getColors().textSecondary)
+              .margin({ top: 4 })
+          }
+          .layoutWeight(1)
+          .padding(16)
+          .backgroundColor(this.getColors().cardBackground)
+          .borderRadius(16)
+          .shadow({
+            radius: 8,
+            color: 'rgba(0,0,0,0.08)',
+            offsetX: 0,
+            offsetY: 4
+          })
+        }
+        .width('92%')
+        .margin({ top: -20 })
+        
+        // 位置状态
+        if (this.locationText !== '准备开始') {
+          Row() {
+            Text('📡')
+              .fontSize(16)
+              .margin({ right: 6 })
+            Text(this.locationText)
+              .fontSize(13)
+              .fontColor(this.getColors().textSecondary)
+          }
+          .padding({ left: 16, right: 16, top: 8, bottom: 8 })
+          .margin({ top: 16 })
+          .backgroundColor(this.getColors().cardBackground)
+          .borderRadius(20)
+        }
+        
+        // 控制按钮区域
+        Column() {
+          Row() {
+            // 开始/暂停/继续按钮 - 大按钮
+            Button(this.getButtonText())
+              .width('65%')
+              .height(60)
+              .fontSize(18)
+              .fontWeight(FontWeight.Medium)
+              .linearGradient({
+                angle: 90,
+                colors: [
+                  [this.getColors().primaryColor, 0.0],
+                  [this.getColors().secondaryColor, 1.0]
+                ]
+              })
+              .fontColor('#FFFFFF')
+              .borderRadius(30)
+              .shadow({
+                radius: 12,
+                color: `${this.getColors().primaryColor}66`,
+                offsetX: 0,
+                offsetY: 6
+              })
+              .onClick(() => {
+                if (!this.isRunning) {
+                  this.startRun();
+                } else if (this.isPaused) {
+                  this.resumeRun();
+                } else {
+                  this.pauseRun();
+                }
+              })
+            
+            // 停止按钮
+            if (this.isRunning) {
+              Button('停止')
+                .width('25%')
+                .height(60)
+                .fontSize(16)
+                .fontWeight(FontWeight.Medium)
+                .backgroundColor(this.getColors().cardBackground)
+                .fontColor(this.getColors().textSecondary)
+                .borderRadius(30)
+                .borderWidth(2)
+                .borderColor(this.getColors().borderColor)
+                .margin({ left: 12 })
+                .onClick(() => {
+                  this.stopRun();
+                })
+            }
+          }
+          .justifyContent(FlexAlign.Center)
+          .width('100%')
+          .padding({ top: 24, bottom: 24 })
+        }
+        .width('92%')
       }
-      .justifyContent(FlexAlign.Center)
+      .width('100%')
     }
     .width('100%')
     .height('100%')
     .backgroundColor(this.getColors().backgroundColor)
+    .scrollBar(BarState.Off)
   }
   
   /**

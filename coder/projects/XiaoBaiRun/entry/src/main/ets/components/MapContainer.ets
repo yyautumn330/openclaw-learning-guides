@@ -98,10 +98,13 @@ export struct MapContainer {
       this.latitude,
       this.longitude,
       this.zoom,
-      600,
-      350,
+      640,
+      400,
       markers
     );
+    
+    // 添加时间戳避免缓存
+    this.mapImageUrl += `&t=${Date.now()}`;
     
     hilog.info(DOMAIN, TAG, 'Map URL updated, zoom: %{public}d', this.zoom);
   }
